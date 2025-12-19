@@ -1,96 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;1,6..12,300;1,6..12,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Kam Yoga Design System - Calm, earthy, premium aesthetic */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Kam Yoga Color Palette - Soft earthy tones */
+    --background: 40 33% 98%; /* Warm off-white */
+    --foreground: 30 15% 20%; /* Warm dark brown */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 30% 96%;
+    --card-foreground: 30 15% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 33% 98%;
+    --popover-foreground: 30 15% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Sage green - primary brand color */
+    --primary: 140 25% 45%;
+    --primary-foreground: 40 33% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sand/clay - secondary */
+    --secondary: 30 30% 90%;
+    --secondary-foreground: 30 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted lavender undertones */
+    --muted: 260 15% 94%;
+    --muted-foreground: 30 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Soft lavender accent */
+    --accent: 260 20% 88%;
+    --accent-foreground: 260 25% 30%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 40 33% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 140 25% 45%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Kam Yoga tokens */
+    --sage: 140 25% 45%;
+    --sage-light: 140 30% 92%;
+    --sage-dark: 140 25% 35%;
+    --lavender: 260 20% 75%;
+    --lavender-light: 260 15% 94%;
+    --clay: 25 35% 65%;
+    --clay-light: 30 30% 90%;
+    --sand: 35 30% 85%;
+    --sand-light: 40 33% 96%;
+    --cream: 40 33% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Typography */
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Nunito Sans', system-ui, sans-serif;
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(30 20% 50% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(30 20% 50% / 0.12);
+    --shadow-hover: 0 12px 40px -12px hsl(140 25% 45% / 0.15);
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    /* Transitions */
+    --transition-calm: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar - keeping defaults */
+    --sidebar-background: 40 30% 96%;
+    --sidebar-foreground: 30 15% 25%;
+    --sidebar-primary: 140 25% 45%;
+    --sidebar-primary-foreground: 40 33% 98%;
+    --sidebar-accent: 260 15% 94%;
+    --sidebar-accent-foreground: 30 15% 25%;
+    --sidebar-border: 30 20% 88%;
+    --sidebar-ring: 140 25% 45%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 30 15% 10%;
+    --foreground: 40 20% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 30 15% 14%;
+    --card-foreground: 40 20% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 30 15% 12%;
+    --popover-foreground: 40 20% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 140 30% 55%;
+    --primary-foreground: 30 15% 10%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 30 15% 18%;
+    --secondary-foreground: 40 20% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 260 10% 18%;
+    --muted-foreground: 40 15% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 260 15% 25%;
+    --accent-foreground: 260 20% 85%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 40 20% 92%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 30 10% 22%;
+    --input: 30 10% 22%;
+    --ring: 140 30% 55%;
+
+    --sage: 140 30% 55%;
+    --sage-light: 140 20% 20%;
+    --sage-dark: 140 30% 65%;
+    --lavender: 260 20% 45%;
+    --lavender-light: 260 10% 20%;
+    --clay: 25 25% 45%;
+    --clay-light: 30 15% 20%;
+    --sand: 35 20% 25%;
+    --sand-light: 40 15% 15%;
+    --cream: 40 15% 12%;
+
+    --sidebar-background: 30 15% 12%;
+    --sidebar-foreground: 40 20% 90%;
+    --sidebar-primary: 140 30% 55%;
+    --sidebar-primary-foreground: 30 15% 10%;
+    --sidebar-accent: 260 10% 20%;
+    --sidebar-accent-foreground: 40 20% 90%;
+    --sidebar-border: 30 10% 22%;
+    --sidebar-ring: 140 30% 55%;
   }
 }
 
@@ -99,7 +134,29 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
   }
 }
