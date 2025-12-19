@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# Kam Yoga Website
 
-## Project info
+A website for Kam Yoga, offering yoga classes, meditation sessions, and workshops in Ireland.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Project Overview
 
-## How can I edit this code?
+This website provides information about Kam Yoga's offerings, including:
+- Yoga classes (Dru Yoga)
+- Meditation sessions
+- Workshops
+- Children's yoga
+- Blog with yoga and wellness content
 
-There are several ways of editing your application.
+## Technologies
 
-**Use Lovable**
+This project is built with:
+- **Vite** - Build tool and development server
+- **TypeScript** - Type-safe JavaScript
+- **React** - UI library
+- **React Router** - Client-side routing
+- **shadcn-ui** - UI component library
+- **Tailwind CSS** - Utility-first CSS framework
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+1. Clone the repository:
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
+cd kam-yoga
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+```sh
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start the development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build in development mode
+- `npm run preview` - Preview the production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # React components
+│   ├── blog/      # Blog-related components
+│   ├── classes/   # Class booking components
+│   ├── home/      # Home page sections
+│   ├── layout/    # Header, Footer
+│   └── ui/        # shadcn-ui components
+├── data/          # Static data (blog posts, classes)
+├── hooks/         # Custom React hooks
+├── lib/           # Utility functions
+├── pages/         # Page components
+└── main.tsx       # Application entry point
+```
 
-This project is built with:
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Build the project for production:
 
-## How can I deploy this project?
+```sh
+npm run build
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+The `dist` folder will contain the production-ready files that can be deployed to any static hosting service (Vercel, Netlify, GitHub Pages, etc.).
 
-## Can I connect a custom domain to my Lovable project?
+## License
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+© 2024 Kam Yoga. All rights reserved.

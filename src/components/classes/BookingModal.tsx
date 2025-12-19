@@ -110,11 +110,11 @@ const BookingModal = ({ classItem, isOpen, onClose }: BookingModalProps) => {
             </Label>
             <div className="relative">
               <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={formData.email}
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="pl-10 rounded-xl border-border/50 focus:border-primary"
                 required

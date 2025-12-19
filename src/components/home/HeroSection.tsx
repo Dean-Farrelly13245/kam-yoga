@@ -3,6 +3,20 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
+  const handleJourneyClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const element = document.getElementById("journey");
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Gradient */}
@@ -52,7 +66,7 @@ const HeroSection = () => {
               size="lg"
               className="rounded-full px-8 py-6 border-foreground/20 hover:bg-foreground/5 text-foreground transition-all duration-300 text-base"
             >
-              <Link to="/about">
+              <Link to="/#journey" onClick={handleJourneyClick}>
                 About Kam Yoga
               </Link>
             </Button>

@@ -43,7 +43,7 @@ const CTASection = () => {
               className="rounded-full px-8 py-6 border-foreground/20 hover:bg-foreground/5 text-foreground transition-all duration-300 text-base"
             >
               <Link to="/contact">
-                Get in Touch
+                Contact Kellyann
               </Link>
             </Button>
           </div>

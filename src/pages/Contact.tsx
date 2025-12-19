@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
-import { Mail, MapPin, Phone, Send, MessageCircle, Calendar, User } from "lucide-react";
+import { Mail, MapPin, Phone, Send, MessageCircle, Calendar, User, Instagram } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -139,15 +139,33 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50">
-                    <div className="p-3 rounded-full bg-sage-light">
+                  <a
+                    href="tel:0851051294"
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 group"
+                  >
+                    <div className="p-3 rounded-full bg-sage-light group-hover:bg-primary/20 transition-colors">
                       <Phone size={20} className="text-primary" />
                     </div>
                     <div>
                       <p className="font-body text-sm text-muted-foreground">Phone</p>
-                      <p className="font-body text-foreground">Available upon request</p>
+                      <p className="font-body text-foreground">085 105 1294</p>
                     </div>
-                  </div>
+                  </a>
+
+                  <a
+                    href="https://instagram.com/kelly81molloy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 group"
+                  >
+                    <div className="p-3 rounded-full bg-sage-light group-hover:bg-primary/20 transition-colors">
+                      <Instagram size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-body text-sm text-muted-foreground">Instagram</p>
+                      <p className="font-body text-foreground">@kelly81molloy</p>
+                    </div>
+                  </a>
                 </div>
 
                 {/* Quote */}
@@ -221,7 +239,7 @@ const Contact = () => {
                         <Input
                           id="email"
                           type="email"
-                          placeholder="you@example.com"
+                          placeholder="your.email@example.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           className={cn(

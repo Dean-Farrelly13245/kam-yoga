@@ -73,7 +73,7 @@ const OfferingsSection = () => {
                   </p>
                   
                   <span className="inline-flex items-center gap-1 font-body text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Learn more
+                    View classes
                     <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
                 </div>

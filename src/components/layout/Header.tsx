@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+  { label: "About", href: "/#journey" },
   { label: "Classes", href: "/classes" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -14,6 +14,24 @@ const navLinks = [
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const handleJourneyClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      const element = document.getElementById("journey");
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+      setIsOpen(false);
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -33,6 +51,7 @@ const Header = () => {
               <li key={link.href}>
                 <Link
                   to={link.href}
+                  onClick={link.href === "/#journey" ? handleJourneyClick : undefined}
                   className="font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300"
                 >
                   {link.label}
@@ -73,7 +92,13 @@ const Header = () => {
               <li key={link.href}>
                 <Link
                   to={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    if (link.href === "/#journey") {
+                      handleJourneyClick(e);
+                    } else {
+                      setIsOpen(false);
+                    }
+                  }}
                   className="block font-body text-base text-muted-foreground hover:text-foreground transition-colors duration-300 py-2"
                 >
                   {link.label}
