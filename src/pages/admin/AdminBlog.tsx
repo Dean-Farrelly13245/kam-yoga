@@ -24,8 +24,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { ArrowLeft, Plus, Edit, Trash2, FileText } from "lucide-react";
+import { ArrowLeft, Plus, Edit, Trash2, FileText, Upload, X, Star, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { format } from "date-fns";
+import { uploadBlogImage, deleteBlogImageByUrl } from "@/lib/storage";
 
 const AdminBlog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -44,6 +45,8 @@ const AdminBlog = () => {
     cover_image_url: "",
     is_published: false,
   });
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [uploadingFiles, setUploadingFiles] = useState<Record<string, "uploading" | "done" | "error">>({});
 
   useEffect(() => {
     loadPosts();
@@ -96,6 +99,8 @@ const AdminBlog = () => {
       cover_image_url: "",
       is_published: false,
     });
+    setImageUrls([]);
+    setUploadingFiles({});
     setIsDialogOpen(true);
   };
 
@@ -109,6 +114,14 @@ const AdminBlog = () => {
       cover_image_url: post.cover_image_url || "",
       is_published: post.is_published,
     });
+    // Load existing images (use image_urls if available, fallback to cover_image_url)
+    const existingImages = post.image_urls && post.image_urls.length > 0
+      ? post.image_urls
+      : post.cover_image_url
+      ? [post.cover_image_url]
+      : [];
+    setImageUrls(existingImages);
+    setUploadingFiles({});
     setIsDialogOpen(true);
   };
 
@@ -168,12 +181,16 @@ const AdminBlog = () => {
         return;
       }
 
+      // Set cover_image_url to first image for backwards compatibility
+      const coverImage = imageUrls.length > 0 ? imageUrls[0] : null;
+
       const postData: any = {
         title: formData.title,
         slug: formData.slug,
         excerpt: formData.excerpt || null,
         content_md: formData.content_md,
-        cover_image_url: formData.cover_image_url || null,
+        cover_image_url: coverImage,
+        image_urls: imageUrls.length > 0 ? imageUrls : null,
         is_published: formData.is_published,
       };
 
@@ -207,13 +224,22 @@ const AdminBlog = () => {
           description: "Blog post updated successfully",
         });
       } else {
-        const { error } = await supabase.from("blog_posts").insert(postData);
+        const { data: newPost, error } = await supabase
+          .from("blog_posts")
+          .insert(postData)
+          .select()
+          .single();
 
         if (error) {
           if (error.code === "23505") {
             throw new Error("A post with this slug already exists. Please try a different slug.");
           }
           throw error;
+        }
+
+        // Update editingPost so future uploads use the real postId
+        if (newPost) {
+          setEditingPost(newPost);
         }
 
         toast({
@@ -259,6 +285,67 @@ const AdminBlog = () => {
         variant: "destructive",
       });
     }
+  };
+
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    const postId = editingPost?.id || "temp";
+    const filesArray = Array.from(files);
+
+    for (const file of filesArray) {
+      const fileId = `${Date.now()}-${Math.random()}`;
+      setUploadingFiles((prev) => ({ ...prev, [fileId]: "uploading" }));
+
+      try {
+        const url = await uploadBlogImage(file, postId);
+        setImageUrls((prev) => [...prev, url]);
+        setUploadingFiles((prev) => ({ ...prev, [fileId]: "done" }));
+      } catch (error: any) {
+        setUploadingFiles((prev) => ({ ...prev, [fileId]: "error" }));
+        toast({
+          title: "Upload Failed",
+          description: `Failed to upload ${file.name}: ${error.message}`,
+          variant: "destructive",
+        });
+      }
+    }
+
+    // Reset input
+    event.target.value = "";
+  };
+
+  const handleRemoveImage = async (index: number) => {
+    const url = imageUrls[index];
+    const newUrls = imageUrls.filter((_, i) => i !== index);
+    setImageUrls(newUrls);
+
+    // Try to delete from storage
+    try {
+      await deleteBlogImageByUrl(url);
+    } catch (error: any) {
+      toast({
+        title: "Warning",
+        description: "Image removed from post but could not delete from storage. You may need to clean it up later.",
+        variant: "default",
+      });
+    }
+  };
+
+  const handleSetCover = (index: number) => {
+    const newUrls = [...imageUrls];
+    const [coverImage] = newUrls.splice(index, 1);
+    newUrls.unshift(coverImage);
+    setImageUrls(newUrls);
+  };
+
+  const handleMoveImage = (index: number, direction: "left" | "right") => {
+    const newUrls = [...imageUrls];
+    const newIndex = direction === "left" ? index - 1 : index + 1;
+    if (newIndex < 0 || newIndex >= newUrls.length) return;
+    [newUrls[index], newUrls[newIndex]] = [newUrls[newIndex], newUrls[index]];
+    setImageUrls(newUrls);
   };
 
   return (
@@ -436,17 +523,140 @@ const AdminBlog = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Cover Image URL</Label>
-                <Input
-                  type="url"
-                  value={formData.cover_image_url}
-                  onChange={(e) =>
-                    setFormData({ ...formData, cover_image_url: e.target.value })
-                  }
-                  placeholder="https://..."
-                  className="rounded-xl"
-                />
+              {/* Image Upload Section */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Photos</Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleFileSelect}
+                      className="hidden"
+                      id="image-upload"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => document.getElementById("image-upload")?.click()}
+                      className="rounded-xl"
+                    >
+                      <Upload className="mr-2 h-4 w-4" />
+                      Upload Photos
+                    </Button>
+                    <p className="text-xs text-muted-foreground">
+                      Max 8MB per image. First image will be used as cover.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Image Manager */}
+                {imageUrls.length > 0 && (
+                  <div className="space-y-2">
+                    <Label>Uploaded Images ({imageUrls.length})</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {imageUrls.map((url, index) => (
+                        <div
+                          key={url}
+                          className="relative group bg-card border border-border rounded-xl overflow-hidden"
+                        >
+                          <img
+                            src={url}
+                            alt={`Upload ${index + 1}`}
+                            className="w-full h-32 object-cover"
+                          />
+                          {index === 0 && (
+                            <div className="absolute top-2 left-2 bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-medium">
+                              Cover
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                            <div className="flex flex-col gap-2">
+                              {index !== 0 && (
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  size="icon"
+                                  onClick={() => handleSetCover(index)}
+                                  className="h-8 w-8 rounded-lg"
+                                  title="Set as cover"
+                                >
+                                  <Star className="h-4 w-4" />
+                                </Button>
+                              )}
+                              <div className="flex gap-1">
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  size="icon"
+                                  onClick={() => handleMoveImage(index, "left")}
+                                  disabled={index === 0}
+                                  className="h-8 w-8 rounded-lg"
+                                  title="Move left"
+                                >
+                                  <ChevronLeft className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  type="button"
+                                  variant="secondary"
+                                  size="icon"
+                                  onClick={() => handleMoveImage(index, "right")}
+                                  disabled={index === imageUrls.length - 1}
+                                  className="h-8 w-8 rounded-lg"
+                                  title="Move right"
+                                >
+                                  <ChevronRight className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              <Button
+                                type="button"
+                                variant="destructive"
+                                size="icon"
+                                onClick={() => handleRemoveImage(index)}
+                                className="h-8 w-8 rounded-lg"
+                                title="Remove"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Upload Progress */}
+                {Object.keys(uploadingFiles).length > 0 && (
+                  <div className="space-y-2">
+                    <Label>Upload Status</Label>
+                    <div className="space-y-1">
+                      {Object.entries(uploadingFiles).map(([fileId, status]) => (
+                        <div key={fileId} className="flex items-center gap-2 text-sm">
+                          {status === "uploading" && (
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                              <span className="text-muted-foreground">Uploading...</span>
+                            </>
+                          )}
+                          {status === "done" && (
+                            <>
+                              <div className="h-4 w-4 rounded-full bg-green-500" />
+                              <span className="text-muted-foreground">Uploaded</span>
+                            </>
+                          )}
+                          {status === "error" && (
+                            <>
+                              <X className="h-4 w-4 text-destructive" />
+                              <span className="text-destructive">Failed</span>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-center gap-3">

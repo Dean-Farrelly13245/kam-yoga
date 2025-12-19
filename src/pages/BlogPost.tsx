@@ -1,7 +1,7 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { format, parseISO } from "date-fns";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, X } from "lucide-react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 
@@ -19,6 +19,7 @@ const BlogPost = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (slug) {
@@ -90,6 +91,14 @@ const BlogPost = () => {
 
   const readTime = estimateReadTime(post.content_md);
 
+  // Get cover image and gallery images
+  const coverImage = (post.image_urls && post.image_urls.length > 0)
+    ? post.image_urls[0]
+    : post.cover_image_url;
+  const galleryImages = (post.image_urls && post.image_urls.length > 1)
+    ? post.image_urls.slice(1)
+    : [];
+
   // Render markdown content with XSS protection
   const renderContent = () => {
     const rawHtml = marked.parse(post.content_md);
@@ -118,12 +127,13 @@ const BlogPost = () => {
           <div className="container mx-auto px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
               {/* Cover Image */}
-              {post.cover_image_url && (
+              {coverImage && (
                 <div className="mb-8">
                   <img
-                    src={post.cover_image_url}
+                    src={coverImage}
                     alt={post.title}
-                    className="w-full rounded-2xl object-cover"
+                    className="w-full rounded-2xl object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                    onClick={() => setLightboxImage(coverImage)}
                   />
                 </div>
               )}
@@ -150,6 +160,30 @@ const BlogPost = () => {
                 className="pt-10 prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-foreground prose-p:font-body prose-p:text-foreground/90 prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:font-body prose-ol:font-body"
                 dangerouslySetInnerHTML={renderContent()}
               />
+
+              {/* Image Gallery */}
+              {galleryImages.length > 0 && (
+                <div className="mt-12">
+                  <h2 className="font-heading text-2xl font-medium text-foreground mb-6">
+                    Gallery
+                  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {galleryImages.map((imageUrl, index) => (
+                      <div
+                        key={index}
+                        className="relative aspect-square overflow-hidden rounded-xl cursor-pointer hover:opacity-90 transition-opacity"
+                        onClick={() => setLightboxImage(imageUrl)}
+                      >
+                        <img
+                          src={imageUrl}
+                          alt={`${post.title} - Image ${index + 2}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Author Bio */}
               <div className="mt-16 p-8 bg-card rounded-2xl border border-border/50">
@@ -206,6 +240,29 @@ const BlogPost = () => {
           </section>
         )}
       </main>
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
+            onClick={() => setLightboxImage(null)}
+          >
+            <X size={24} />
+          </button>
+          <div className="max-w-6xl max-h-full">
+            <img
+              src={lightboxImage}
+              alt="Gallery"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -35,6 +35,7 @@ export interface BlogPost {
   excerpt: string | null;
   content_md: string;
   cover_image_url: string | null;
+  image_urls: string[] | null;
   is_published: boolean;
   published_at: string | null;
   created_at: string;
