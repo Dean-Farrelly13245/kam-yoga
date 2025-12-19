@@ -6,25 +6,25 @@ const offerings = [
     icon: Flower2,
     title: "Yoga Classes",
     description: "Gentle Dru Yoga classes that honour your body's wisdom, focusing on flowing movements, breathing techniques, and deep relaxation.",
-    link: "/classes?type=yoga",
+    link: "/classes",
   },
   {
     icon: Brain,
     title: "Meditation",
     description: "Guided meditation sessions to cultivate inner stillness, clarity, and a deeper connection to your authentic self.",
-    link: "/classes?type=meditation",
+    link: "/classes",
   },
   {
     icon: Users,
     title: "Workshops",
     description: "Immersive workshops exploring specific themes — from stress relief to seasonal practices and spiritual development.",
-    link: "/classes?type=workshops",
+    link: "/classes",
   },
   {
     icon: Baby,
     title: "Children's Yoga",
     description: "Playful, imaginative yoga sessions designed to help young ones develop body awareness, focus, and emotional resilience.",
-    link: "/classes?type=kids",
+    link: "/classes",
   },
 ];
 

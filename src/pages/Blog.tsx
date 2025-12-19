@@ -1,23 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BlogCard from "@/components/blog/BlogCard";
-import BlogFilters from "@/components/blog/BlogFilters";
-import { blogPosts } from "@/data/blog";
+import { supabase, BlogPost } from "@/lib/supabaseClient";
 
 const Blog = () => {
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const featuredPosts = blogPosts.filter((post) => post.featured);
-  const regularPosts = blogPosts.filter((post) => !post.featured);
+  useEffect(() => {
+    loadPosts();
+  }, []);
 
-  const filteredPosts = activeFilter === "all"
-    ? regularPosts
-    : regularPosts.filter((post) => post.category === activeFilter);
+  const loadPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("*")
+        .eq("is_published", true)
+        .order("published_at", { ascending: false, nullsLast: true });
 
-  const filteredFeatured = activeFilter === "all"
-    ? featuredPosts
-    : featuredPosts.filter((post) => post.category === activeFilter);
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error("Error loading blog posts:", error);
+      setPosts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,60 +51,28 @@ const Blog = () => {
               </p>
             </div>
 
-            {/* Filters */}
-            <div className="mt-12">
-              <BlogFilters
-                activeFilter={activeFilter}
-                onFilterChange={setActiveFilter}
-              />
-            </div>
           </div>
         </section>
 
-        {/* Featured Posts */}
-        {filteredFeatured.length > 0 && (
-          <section className="py-12 lg:py-16">
-            <div className="container mx-auto px-6 lg:px-8">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="font-heading text-sm uppercase tracking-widest text-muted-foreground mb-8">
-                  Featured
-                </h2>
-                <div className="space-y-6">
-                  {filteredFeatured.map((post) => (
-                    <BlogCard key={post.id} post={post} featured />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* All Posts */}
+        {/* Blog Posts */}
         <section className="py-12 lg:py-16">
           <div className="container mx-auto px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-              {filteredFeatured.length > 0 && (
-                <h2 className="font-heading text-sm uppercase tracking-widest text-muted-foreground mb-8">
-                  All Posts
-                </h2>
-              )}
-              {filteredPosts.length > 0 ? (
+              {isLoading ? (
+                <div className="text-center py-16">
+                  <p className="font-body text-muted-foreground">Loading posts...</p>
+                </div>
+              ) : posts.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredPosts.map((post) => (
+                  {posts.map((post) => (
                     <BlogCard key={post.id} post={post} />
                   ))}
                 </div>
               ) : (
                 <div className="text-center py-16">
                   <p className="font-body text-lg text-muted-foreground">
-                    No posts in this category yet.
+                    No blog posts yet.
                   </p>
-                  <button
-                    onClick={() => setActiveFilter("all")}
-                    className="mt-4 font-body text-primary hover:text-sage-dark underline underline-offset-4 transition-colors"
-                  >
-                    View all posts
-                  </button>
                 </div>
               )}
             </div>

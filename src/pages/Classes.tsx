@@ -1,43 +1,47 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClassCard from "@/components/classes/ClassCard";
-import ClassFilters from "@/components/classes/ClassFilters";
 import BookingModal from "@/components/classes/BookingModal";
-import { classesData, ClassItem } from "@/data/classes";
+import { supabase, Class } from "@/lib/supabaseClient";
 
 const Classes = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
+  const [classes, setClasses] = useState<Class[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedClass, setSelectedClass] = useState<Class | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Sync filter with URL params
   useEffect(() => {
-    const typeParam = searchParams.get("type");
-    if (typeParam && ["yoga", "meditation", "workshops", "kids"].includes(typeParam)) {
-      setActiveFilter(typeParam === "workshops" ? "workshop" : typeParam);
-    }
-  }, [searchParams]);
+    loadClasses();
+  }, []);
 
-  const handleFilterChange = (filter: string) => {
-    setActiveFilter(filter);
-    if (filter === "all") {
-      setSearchParams({});
-    } else {
-      setSearchParams({ type: filter === "workshop" ? "workshops" : filter });
+  const loadClasses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("classes")
+        .select("*")
+        .eq("is_published", true)
+        .order("date", { ascending: true });
+
+      if (error) {
+        console.error("Supabase error loading classes:", error);
+        throw error;
+      }
+      
+      console.log("Loaded classes:", data?.length || 0, data);
+      setClasses(data || []);
+    } catch (error) {
+      console.error("Error loading classes:", error);
+      setClasses([]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleBook = (classItem: ClassItem) => {
+  const handleBook = (classItem: Class) => {
     setSelectedClass(classItem);
     setIsModalOpen(true);
   };
-
-  const filteredClasses = activeFilter === "all" 
-    ? classesData 
-    : classesData.filter((c) => c.type === activeFilter);
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,23 +63,21 @@ const Classes = () => {
                 there's a class waiting for you. Book your spot and step onto the mat.
               </p>
             </div>
-
-            {/* Filters */}
-            <div className="mt-12">
-              <ClassFilters 
-                activeFilter={activeFilter} 
-                onFilterChange={handleFilterChange} 
-              />
-            </div>
           </div>
         </section>
 
         {/* Class Listings */}
         <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 lg:px-8">
-            {filteredClasses.length > 0 ? (
+            {isLoading ? (
+              <div className="text-center py-16">
+                <p className="font-body text-lg text-muted-foreground">
+                  Loading classes...
+                </p>
+              </div>
+            ) : classes.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {filteredClasses.map((classItem) => (
+                {classes.map((classItem) => (
                   <ClassCard 
                     key={classItem.id} 
                     classItem={classItem} 
@@ -85,15 +87,12 @@ const Classes = () => {
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="font-body text-lg text-muted-foreground">
-                  No classes available in this category at the moment.
+                <p className="font-body text-lg text-muted-foreground mb-4">
+                  No classes available at the moment.
                 </p>
-                <button
-                  onClick={() => handleFilterChange("all")}
-                  className="mt-4 font-body text-primary hover:text-sage-dark underline underline-offset-4 transition-colors"
-                >
-                  View all classes
-                </button>
+                <p className="font-body text-sm text-muted-foreground">
+                  Make sure your class is published in the admin dashboard.
+                </p>
               </div>
             )}
           </div>

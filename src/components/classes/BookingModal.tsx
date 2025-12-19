@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { format, parseISO } from "date-fns";
-import { Calendar, Clock, MapPin, X, User, Mail, Phone } from "lucide-react";
+import { Calendar, Clock, MapPin, User, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,11 +10,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ClassItem } from "@/data/classes";
+import { Class } from "@/lib/supabaseClient";
 import { useToast } from "@/hooks/use-toast";
+import { callFunction } from "@/lib/functions";
 
 interface BookingModalProps {
-  classItem: ClassItem | null;
+  classItem: Class | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -24,29 +25,61 @@ const BookingModal = ({ classItem, isOpen, onClose }: BookingModalProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!classItem) return null;
 
   const formattedDate = format(parseISO(classItem.date), "EEEE, d MMMM yyyy");
+  
+  // Calculate duration if end_time is available
+  const getDuration = () => {
+    if (!classItem.end_time) return null;
+    const start = new Date(`2000-01-01T${classItem.start_time}`);
+    const end = new Date(`2000-01-01T${classItem.end_time}`);
+    const diffMs = end.getTime() - start.getTime();
+    const diffMins = Math.round(diffMs / 60000);
+    if (diffMins < 60) return `${diffMins} min`;
+    const hours = Math.floor(diffMins / 60);
+    const mins = diffMins % 60;
+    return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`;
+  };
+
+  const duration = getDuration();
+  const timeDisplay = classItem.end_time 
+    ? `${classItem.start_time} - ${classItem.end_time}`
+    : classItem.start_time;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate booking submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Call the create-checkout-session function
+      const { url } = await callFunction<{ url: string }>(
+        "create-checkout-session",
+        {
+          classId: classItem.id,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+        }
+      );
 
-    toast({
-      title: "Booking Confirmed!",
-      description: `You're booked for ${classItem.title}. A confirmation email has been sent to ${formData.email}.`,
-    });
-
-    setIsSubmitting(false);
-    setFormData({ name: "", email: "", phone: "" });
-    onClose();
+      // Redirect to Stripe Checkout
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error("No checkout URL received");
+      }
+    } catch (error: any) {
+      console.error("Booking error:", error);
+      toast({
+        title: "Booking Failed",
+        description: error.message || "Failed to create booking. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,19 +103,26 @@ const BookingModal = ({ classItem, isOpen, onClose }: BookingModalProps) => {
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
               <Clock size={16} className="text-primary" />
-              <span>{classItem.time} · {classItem.duration}</span>
+              <span>
+                {timeDisplay}
+                {duration && ` · ${duration}`}
+              </span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
-              <MapPin size={16} className="text-primary" />
-              <span>{classItem.location}</span>
+            {classItem.location && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
+                <MapPin size={16} className="text-primary" />
+                <span>{classItem.location}</span>
+              </div>
+            )}
+          </div>
+          {classItem.price_eur && (
+            <div className="mt-4 pt-3 border-t border-border/50 flex justify-between items-center">
+              <span className="font-body text-sm text-muted-foreground">Total</span>
+              <span className="font-heading text-xl font-medium text-foreground">
+                €{classItem.price_eur}
+              </span>
             </div>
-          </div>
-          <div className="mt-4 pt-3 border-t border-border/50 flex justify-between items-center">
-            <span className="font-body text-sm text-muted-foreground">Total</span>
-            <span className="font-heading text-xl font-medium text-foreground">
-              €{classItem.price}
-            </span>
-          </div>
+          )}
         </div>
 
         {/* Booking Form */}
@@ -122,22 +162,6 @@ const BookingModal = ({ classItem, isOpen, onClose }: BookingModalProps) => {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone" className="font-body text-sm">
-              Phone Number
-            </Label>
-            <div className="relative">
-              <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+353 ..."
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="pl-10 rounded-xl border-border/50 focus:border-primary"
-              />
-            </div>
-          </div>
 
           <div className="pt-4 flex gap-3">
             <Button
@@ -159,7 +183,7 @@ const BookingModal = ({ classItem, isOpen, onClose }: BookingModalProps) => {
         </form>
 
         <p className="text-xs text-muted-foreground text-center font-body">
-          Payment will be collected at the class. Cancellation policy applies.
+          You will be redirected to Stripe to complete payment. Your booking will be confirmed after payment.
         </p>
       </DialogContent>
     </Dialog>
