@@ -23,5 +23,16 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment variables
 .env
 .env.local
+.env.production
+.env.*.local
+
+# Netlify
+.netlify
+
+# Supabase
+.temp
+supabase/.branches
+supabase/.temp

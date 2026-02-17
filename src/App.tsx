@@ -25,13 +25,19 @@ import TestModeBanner from "./components/layout/TestModeBanner";
 
 const queryClient = new QueryClient();
 
+// Determine basename based on environment
+// For Netlify (production), use root. For GitHub Pages, use /kam-yoga/
+const basename = import.meta.env.PROD && import.meta.env.BASE_URL === "/" 
+  ? "/" 
+  : "/kam-yoga";
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <TestModeBanner />
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/kam-yoga">
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/classes" element={<Classes />} />
