@@ -26,14 +26,8 @@ const Login = () => {
 
       if (error) throw error;
 
-      // Check if user is admin
-      const { data: adminData, error: adminError } = await supabase
-        .from("admin_users")
-        .select("user_id")
-        .eq("user_id", data.user.id)
-        .single();
-
-      if (adminError || !adminData) {
+      const { data: adminFlag, error: adminError } = await supabase.rpc("is_admin");
+      if (adminError || !adminFlag) {
         await supabase.auth.signOut();
         toast({
           title: "Access Denied",

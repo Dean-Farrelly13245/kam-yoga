@@ -10,15 +10,18 @@ const Blog = () => {
 
   useEffect(() => {
     loadPosts();
+    document.title = "Blog | Kam Yoga";
   }, []);
 
   const loadPosts = async () => {
     try {
+      const nowIso = new Date().toISOString();
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
-        .eq("is_published", true)
-        .order("published_at", { ascending: false, nullsLast: true });
+        .eq("status", "published")
+        .lte("published_at", nowIso)
+        .order("published_at", { ascending: false });
 
       if (error) throw error;
       setPosts(data || []);
@@ -75,34 +78,6 @@ const Blog = () => {
                   </p>
                 </div>
               )}
-            </div>
-          </div>
-        </section>
-
-        {/* Newsletter CTA */}
-        <section className="py-16 lg:py-20 bg-card">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="font-heading text-2xl md:text-3xl font-light text-foreground">
-                Stay Connected
-              </h2>
-              <p className="mt-4 font-body text-muted-foreground">
-                Receive occasional reflections, class updates, and gentle reminders 
-                to pause and breathe.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 px-4 py-3 rounded-xl border border-border/50 bg-background font-body text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
-                <button className="px-6 py-3 rounded-xl bg-primary hover:bg-sage-dark text-primary-foreground font-body text-sm font-medium transition-colors">
-                  Subscribe
-                </button>
-              </div>
-              <p className="mt-4 text-xs text-muted-foreground font-body">
-                No spam, ever. Unsubscribe anytime.
-              </p>
             </div>
           </div>
         </section>

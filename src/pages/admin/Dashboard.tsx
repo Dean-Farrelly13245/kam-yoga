@@ -1,34 +1,18 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useAdmin } from "@/hooks/useAdmin";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, FileText, LogOut, LayoutDashboard, Euro, TrendingUp, Home } from "lucide-react";
+import { Calendar, FileText, LogOut, Euro, TrendingUp, Home, ClipboardList } from "lucide-react";
 import AdminGuard from "@/components/admin/AdminGuard";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { format } from "date-fns";
-
-interface RevenueStats {
-  week: number;
-  month: number;
-  year: number;
-  monthlyBreakdown: Array<{
-    month: string;
-    revenue: number;
-  }>;
-}
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [revenueStats, setRevenueStats] = useState<RevenueStats | null>(null);
+  const [revenueStats, setRevenueStats] = useState<{ week: number; month: number; year: number }>({
+    week: 0,
+    month: 0,
+    year: 0,
+  });
   const [isLoadingRevenue, setIsLoadingRevenue] = useState(true);
 
   useEffect(() => {
@@ -37,79 +21,38 @@ const Dashboard = () => {
 
   const loadRevenueStats = async () => {
     try {
-      // Get current date boundaries
       const now = new Date();
       const weekStart = new Date(now);
-      weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7)); // Monday
+      weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7));
       weekStart.setHours(0, 0, 0, 0);
-
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const yearStart = new Date(now.getFullYear(), 0, 1);
 
-      // Get revenue for week
-      const { data: weekData, error: weekError } = await supabase
-        .from("bookings")
-        .select("amount_eur")
-        .eq("status", "paid")
-        .gte("paid_at", weekStart.toISOString());
+      const { data, error } = await supabase
+        .from("payments")
+        .select("amount_cents, currency, status, created_at")
+        .eq("status", "succeeded");
 
-      // Get revenue for month
-      const { data: monthData, error: monthError } = await supabase
-        .from("bookings")
-        .select("amount_eur")
-        .eq("status", "paid")
-        .gte("paid_at", monthStart.toISOString());
+      if (error) throw error;
 
-      // Get revenue for year
-      const { data: yearData, error: yearError } = await supabase
-        .from("bookings")
-        .select("amount_eur")
-        .eq("status", "paid")
-        .gte("paid_at", yearStart.toISOString());
-
-      // Get all paid bookings for monthly breakdown (last 12 months)
-      const twelveMonthsAgo = new Date(now);
-      twelveMonthsAgo.setMonth(now.getMonth() - 12);
-
-      const { data: allData, error: allError } = await supabase
-        .from("bookings")
-        .select("amount_eur, paid_at")
-        .eq("status", "paid")
-        .gte("paid_at", twelveMonthsAgo.toISOString())
-        .not("paid_at", "is", null);
-
-      if (weekError || monthError || yearError || allError) {
-        throw weekError || monthError || yearError || allError;
-      }
-
-      const weekRevenue = weekData?.reduce((sum, b) => sum + (b.amount_eur || 0), 0) || 0;
-      const monthRevenue = monthData?.reduce((sum, b) => sum + (b.amount_eur || 0), 0) || 0;
-      const yearRevenue = yearData?.reduce((sum, b) => sum + (b.amount_eur || 0), 0) || 0;
-
-      // Group by month
-      const monthlyMap = new Map<string, number>();
-      allData?.forEach((booking) => {
-        if (booking.paid_at) {
-          const date = new Date(booking.paid_at);
-          const monthKey = format(date, "yyyy-MM");
-          const current = monthlyMap.get(monthKey) || 0;
-          monthlyMap.set(monthKey, current + (booking.amount_eur || 0));
-        }
-      });
-
-      // Convert to array and sort
-      const monthlyBreakdown = Array.from(monthlyMap.entries())
-        .map(([month, revenue]) => ({
-          month: format(new Date(month + "-01"), "MMM yyyy"),
-          revenue,
-        }))
-        .sort((a, b) => a.month.localeCompare(b.month));
+      const payments = data || [];
+      const weekRevenue =
+        payments
+          .filter((p: any) => new Date(p.created_at) >= weekStart)
+          .reduce((sum: number, p: any) => sum + (p.amount_cents || 0), 0) / 100;
+      const monthRevenue =
+        payments
+          .filter((p: any) => new Date(p.created_at) >= monthStart)
+          .reduce((sum: number, p: any) => sum + (p.amount_cents || 0), 0) / 100;
+      const yearRevenue =
+        payments
+          .filter((p: any) => new Date(p.created_at) >= yearStart)
+          .reduce((sum: number, p: any) => sum + (p.amount_cents || 0), 0) / 100;
 
       setRevenueStats({
         week: weekRevenue,
         month: monthRevenue,
         year: yearRevenue,
-        monthlyBreakdown,
       });
     } catch (error: any) {
       console.error("Error loading revenue stats:", error);
@@ -159,7 +102,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Revenue KPIs */}
             <div className="mb-8">
               <h2 className="font-heading text-2xl font-medium text-foreground mb-4">
                 Revenue Overview
@@ -200,34 +142,6 @@ const Dashboard = () => {
                 <p className="font-body text-muted-foreground">No revenue data available</p>
               )}
 
-              {/* Monthly Breakdown */}
-              {revenueStats && revenueStats.monthlyBreakdown.length > 0 && (
-                <div className="bg-card rounded-2xl p-6 border border-border">
-                  <h3 className="font-heading text-xl font-medium text-foreground mb-4">
-                    Monthly Breakdown (Last 12 Months)
-                  </h3>
-                  <div className="overflow-x-auto">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Month</TableHead>
-                          <TableHead className="text-right">Revenue</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {revenueStats.monthlyBreakdown.map((item, index) => (
-                          <TableRow key={index}>
-                            <TableCell className="font-medium">{item.month}</TableCell>
-                            <TableCell className="text-right font-medium">
-                              €{item.revenue.toFixed(2)}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Quick Links */}
@@ -250,6 +164,40 @@ const Dashboard = () => {
                   </div>
                   <p className="font-body text-muted-foreground">
                     Create, edit, and manage yoga classes
+                  </p>
+                </Link>
+
+                <Link
+                  to="/admin/bookings"
+                  className="group bg-card rounded-2xl p-8 border border-border hover:border-primary/30 hover:shadow-soft transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 rounded-xl bg-sage-light group-hover:bg-primary/20 transition-colors">
+                      <ClipboardList className="h-6 w-6 text-primary" />
+                    </div>
+                    <h2 className="font-heading text-2xl font-medium text-foreground">
+                      Bookings
+                    </h2>
+                  </div>
+                  <p className="font-body text-muted-foreground">
+                    View paid bookings and statuses
+                  </p>
+                </Link>
+
+                <Link
+                  to="/admin/analytics"
+                  className="group bg-card rounded-2xl p-8 border border-border hover:border-primary/30 hover:shadow-soft transition-all duration-300"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 rounded-xl bg-sage-light group-hover:bg-primary/20 transition-colors">
+                      <TrendingUp className="h-6 w-6 text-primary" />
+                    </div>
+                    <h2 className="font-heading text-2xl font-medium text-foreground">
+                      Analytics
+                    </h2>
+                  </div>
+                  <p className="font-body text-muted-foreground">
+                    Revenue metrics based on Stripe payments
                   </p>
                 </Link>
 

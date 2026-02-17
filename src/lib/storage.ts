@@ -15,15 +15,20 @@ const sanitizeFilename = (filename: string): string => {
 };
 
 /**
- * Generates a unique storage path for a blog image
+ * Generates a unique storage path for a blog image.
+ * Path convention: blog-images/{postId}/{variant}/{timestamp}-{filename}
  */
-const generateStoragePath = (postId: string, filename: string): string => {
+const generateStoragePath = (
+  postId: string,
+  filename: string,
+  variant: "hero" | "inline"
+): string => {
   const sanitized = sanitizeFilename(filename);
   const timestamp = Date.now();
   const random = Math.random().toString(36).substring(2, 9);
   const ext = sanitized.split(".").pop() || "jpg";
   const nameWithoutExt = sanitized.replace(/\.[^/.]+$/, "");
-  return `blog/${postId}/${timestamp}-${random}-${nameWithoutExt}.${ext}`;
+  return `${postId}/${variant}/${timestamp}-${random}-${nameWithoutExt}.${ext}`;
 };
 
 /**
@@ -48,7 +53,8 @@ export const extractPathFromUrl = (url: string): string | null => {
  */
 export const uploadBlogImage = async (
   file: File,
-  postId: string
+  postId: string,
+  variant: "hero" | "inline" = "inline"
 ): Promise<string> => {
   // Validate file type
   if (!file.type.startsWith("image/")) {
@@ -61,7 +67,7 @@ export const uploadBlogImage = async (
   }
 
   // Generate storage path
-  const path = generateStoragePath(postId, file.name);
+  const path = generateStoragePath(postId, file.name, variant);
 
   // Upload to Supabase Storage
   const { data, error } = await supabase.storage

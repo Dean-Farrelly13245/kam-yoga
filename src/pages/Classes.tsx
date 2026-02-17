@@ -3,43 +3,55 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ClassCard from "@/components/classes/ClassCard";
 import BookingModal from "@/components/classes/BookingModal";
-import { supabase, Class } from "@/lib/supabaseClient";
+import { supabase, PublishedSession } from "@/lib/supabaseClient";
+import { siteLocation } from "@/config/site";
 
 const Classes = () => {
-  const [classes, setClasses] = useState<Class[]>([]);
+  const [sessions, setSessions] = useState<PublishedSession[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedClass, setSelectedClass] = useState<Class | null>(null);
+  const [selectedSession, setSelectedSession] = useState<PublishedSession | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    loadClasses();
+    loadSessions();
   }, []);
 
-  const loadClasses = async () => {
+  const loadSessions = async () => {
     try {
-      const { data, error } = await supabase
-        .from("classes")
-        .select("*")
-        .eq("is_published", true)
-        .order("date", { ascending: true });
+      const { data, error } = await supabase.rpc("get_published_classes");
+      if (error) throw error;
 
-      if (error) {
-        console.error("Supabase error loading classes:", error);
-        throw error;
-      }
-      
-      console.log("Loaded classes:", data?.length || 0, data);
-      setClasses(data || []);
+      const mapped = (data || []).map((item: any) => {
+        const remaining =
+          item.capacity !== null && item.paid_count !== null
+            ? Math.max(item.capacity - item.paid_count, 0)
+            : null;
+        return {
+          id: item.id,
+          title: item.title,
+          description: item.description,
+          starts_at: item.starts_at,
+          ends_at: item.ends_at,
+          price_cents: item.price_cents,
+          currency: item.currency || "eur",
+          capacity: item.capacity,
+          is_active: item.is_active,
+          created_at: item.created_at,
+          paid_count: item.paid_count,
+          remaining_spots: remaining,
+        } as PublishedSession;
+      });
+      setSessions(mapped);
     } catch (error) {
-      console.error("Error loading classes:", error);
-      setClasses([]);
+      console.error("Error loading sessions:", error);
+      setSessions([]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleBook = (classItem: Class) => {
-    setSelectedClass(classItem);
+  const handleBook = (sessionItem: PublishedSession) => {
+    setSelectedSession(sessionItem);
     setIsModalOpen(true);
   };
 
@@ -59,15 +71,14 @@ const Classes = () => {
                 Find Your Practice
               </h1>
               <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed">
-                Whether you're new to yoga or returning to deepen your practice, 
-                there's a class waiting for you. Book your spot and step onto the mat.
+                All levels welcome. In-person classes at {siteLocation.addressLine}.
               </p>
             </div>
           </div>
         </section>
 
         {/* Class Listings */}
-        <section className="py-16 lg:py-20">
+        <section className="py-10 lg:py-16">
           <div className="container mx-auto px-6 lg:px-8">
             {isLoading ? (
               <div className="text-center py-16">
@@ -75,12 +86,12 @@ const Classes = () => {
                   Loading classes...
                 </p>
               </div>
-            ) : classes.length > 0 ? (
+            ) : sessions.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {classes.map((classItem) => (
+                {sessions.map((sessionItem) => (
                   <ClassCard 
-                    key={classItem.id} 
-                    classItem={classItem} 
+                    key={sessionItem.id} 
+                    classItem={sessionItem} 
                     onBook={handleBook}
                   />
                 ))}
@@ -88,10 +99,10 @@ const Classes = () => {
             ) : (
               <div className="text-center py-16">
                 <p className="font-body text-lg text-muted-foreground mb-4">
-                  No classes available at the moment.
+                  No classes scheduled yet.
                 </p>
                 <p className="font-body text-sm text-muted-foreground">
-                  Make sure your class is published in the admin dashboard.
+                  Check back soon for new sessions.
                 </p>
               </div>
             )}
@@ -135,7 +146,7 @@ const Classes = () => {
 
       {/* Booking Modal */}
       <BookingModal 
-        classItem={selectedClass}
+        classItem={selectedSession}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

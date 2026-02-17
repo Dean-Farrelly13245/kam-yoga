@@ -20,12 +20,12 @@ const BlogCard = ({ post, featured = false }: BlogCardProps) => {
     return `${minutes} min read`;
   };
 
-  const readTime = estimateReadTime(post.content_md);
+  const readTime = estimateReadTime(post.content);
 
-  // Get cover image (first from image_urls, fallback to cover_image_url)
+  // Get cover image (first from image_urls, fallback to hero_image_url)
   const coverImage = (post.image_urls && post.image_urls.length > 0)
     ? post.image_urls[0]
-    : post.cover_image_url;
+    : post.hero_image_url;
 
   if (featured) {
     return (

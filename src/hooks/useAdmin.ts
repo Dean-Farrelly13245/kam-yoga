@@ -18,17 +18,12 @@ export const useAdmin = () => {
           return;
         }
 
-        // Check if user is in admin_users table
-        const { data, error } = await supabase
-          .from("admin_users")
-          .select("user_id")
-          .eq("user_id", session.user.id)
-          .single();
-
-        if (error || !data) {
+        const { data, error } = await supabase.rpc("is_admin");
+        if (error) {
+          console.error("is_admin rpc error", error);
           setIsAdmin(false);
         } else {
-          setIsAdmin(true);
+          setIsAdmin(Boolean(data));
         }
       } catch (error) {
         console.error("Error checking admin status:", error);

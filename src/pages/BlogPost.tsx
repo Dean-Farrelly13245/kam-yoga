@@ -27,13 +27,48 @@ const BlogPost = () => {
     }
   }, [slug]);
 
+  useEffect(() => {
+    if (!post) return;
+    const description = post.excerpt || post.content.slice(0, 150);
+    document.title = `${post.title} | Kam Yoga`;
+    const setMeta = (name: string, content: string) => {
+      let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("name", name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+    const setPropertyMeta = (property: string, content: string) => {
+      let tag = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement | null;
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("property", property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+    setMeta("description", description);
+    setPropertyMeta("og:title", post.title);
+    setPropertyMeta("og:description", description);
+    if (post.hero_image_url) {
+      setPropertyMeta("og:image", post.hero_image_url);
+    }
+    if (post.published_at) {
+      setPropertyMeta("article:published_time", post.published_at);
+    }
+  }, [post]);
+
   const loadPost = async () => {
     try {
+      const nowIso = new Date().toISOString();
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
         .eq("slug", slug)
-        .eq("is_published", true)
+        .eq("status", "published")
+        .lte("published_at", nowIso)
         .single();
 
       if (error) throw error;
@@ -44,9 +79,10 @@ const BlogPost = () => {
         const { data: related } = await supabase
           .from("blog_posts")
           .select("*")
-          .eq("is_published", true)
+          .eq("status", "published")
+          .lte("published_at", nowIso)
           .neq("id", data.id)
-          .order("published_at", { ascending: false, nullsLast: true })
+          .order("published_at", { ascending: false })
           .limit(2);
         
         setRelatedPosts(related || []);
@@ -89,19 +125,19 @@ const BlogPost = () => {
     return `${minutes} min read`;
   };
 
-  const readTime = estimateReadTime(post.content_md);
+  const readTime = estimateReadTime(post.content);
 
   // Get cover image and gallery images
   const coverImage = (post.image_urls && post.image_urls.length > 0)
     ? post.image_urls[0]
-    : post.cover_image_url;
+    : post.hero_image_url;
   const galleryImages = (post.image_urls && post.image_urls.length > 1)
     ? post.image_urls.slice(1)
     : [];
 
   // Render markdown content with XSS protection
   const renderContent = () => {
-    const rawHtml = marked.parse(post.content_md);
+    const rawHtml = marked.parse(post.content);
     const safeHtml = DOMPurify.sanitize(rawHtml);
     return { __html: safeHtml };
   };
