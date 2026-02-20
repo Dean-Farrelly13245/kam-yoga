@@ -16,7 +16,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Filter, RefreshCw } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { ArrowLeft, Ban, Filter, RefreshCw, RotateCcw } from "lucide-react";
 
 type BookingStatus = "pending" | "paid" | "cancelled" | "refunded";
 
@@ -46,12 +56,18 @@ const AdminBookings = () => {
   const [statusFilter, setStatusFilter] = useState<"all" | BookingStatus>("all");
   const [dateFrom, setDateFrom] = useState<string>("");
   const [dateTo, setDateTo] = useState<string>("");
+  const [actionTarget, setActionTarget] = useState<{ id: string; action: "cancel" | "refund" } | null>(null);
+  const [isMutating, setIsMutating] = useState(false);
 
   useEffect(() => {
-    void loadBookings();
+    void loadBookings("all", "", "");
   }, []);
 
-  const loadBookings = async () => {
+  const loadBookings = async (
+    status: "all" | BookingStatus,
+    from: string,
+    to: string
+  ) => {
     setIsLoading(true);
     try {
       let query = supabase
@@ -59,14 +75,14 @@ const AdminBookings = () => {
         .select("id, class_id, user_email, user_name, status, amount_cents, currency, created_at, classes(title, starts_at)")
         .order("created_at", { ascending: false });
 
-      if (statusFilter !== "all") {
-        query = query.eq("status", statusFilter);
+      if (status !== "all") {
+        query = query.eq("status", status);
       }
-      if (dateFrom) {
-        query = query.gte("created_at", new Date(dateFrom).toISOString());
+      if (from) {
+        query = query.gte("created_at", new Date(from).toISOString());
       }
-      if (dateTo) {
-        const end = new Date(dateTo);
+      if (to) {
+        const end = new Date(to);
         end.setHours(23, 59, 59, 999);
         query = query.lte("created_at", end.toISOString());
       }
@@ -96,6 +112,46 @@ const AdminBookings = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleApply = () => {
+    void loadBookings(statusFilter, dateFrom, dateTo);
+  };
+
+  const handleReset = () => {
+    setStatusFilter("all");
+    setDateFrom("");
+    setDateTo("");
+    void loadBookings("all", "", "");
+  };
+
+  const handleAction = async () => {
+    if (!actionTarget) return;
+    setIsMutating(true);
+    const newStatus = actionTarget.action === "cancel" ? "cancelled" : "refunded";
+
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .update({ status: newStatus })
+        .eq("id", actionTarget.id);
+
+      if (error) throw error;
+
+      toast({
+        title: newStatus === "cancelled" ? "Booking cancelled" : "Booking marked as refunded",
+      });
+      void loadBookings(statusFilter, dateFrom, dateTo);
+    } catch (error: any) {
+      toast({
+        title: "Action failed",
+        description: error.message || "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsMutating(false);
+      setActionTarget(null);
     }
   };
 
@@ -130,7 +186,7 @@ const AdminBookings = () => {
                 </p>
               </div>
             </div>
-            <Button onClick={loadBookings} variant="outline" className="rounded-xl">
+            <Button onClick={() => loadBookings(statusFilter, dateFrom, dateTo)} variant="outline" className="rounded-xl">
               <RefreshCw className="h-4 w-4 mr-2" />
               Refresh
             </Button>
@@ -176,18 +232,13 @@ const AdminBookings = () => {
                 />
               </div>
               <div className="flex gap-2">
-                <Button className="flex-1 rounded-xl" onClick={loadBookings}>
+                <Button className="flex-1 rounded-xl" onClick={handleApply}>
                   Apply
                 </Button>
                 <Button
                   variant="outline"
                   className="rounded-xl"
-                  onClick={() => {
-                    setStatusFilter("all");
-                    setDateFrom("");
-                    setDateTo("");
-                    void loadBookings();
-                  }}
+                  onClick={handleReset}
                 >
                   Reset
                 </Button>
@@ -213,18 +264,19 @@ const AdminBookings = () => {
                   <TableHead>Status</TableHead>
                   <TableHead>Amount</TableHead>
                   <TableHead>Booked At</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {isLoading ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center text-muted-foreground">
                       Loading bookings...
                     </TableCell>
                   </TableRow>
                 ) : bookings.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center text-muted-foreground">
                       No bookings found.
                     </TableCell>
                   </TableRow>
@@ -260,6 +312,32 @@ const AdminBookings = () => {
                       <TableCell className="font-body text-sm text-muted-foreground">
                         {format(new Date(booking.created_at), "d MMM yyyy, HH:mm")}
                       </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          {(booking.status === "paid" || booking.status === "pending") && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="rounded-xl text-destructive text-xs h-7 px-2"
+                              onClick={() => setActionTarget({ id: booking.id, action: "cancel" })}
+                            >
+                              <Ban className="h-3 w-3 mr-1" />
+                              Cancel
+                            </Button>
+                          )}
+                          {booking.status === "paid" && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="rounded-xl text-blue-600 text-xs h-7 px-2"
+                              onClick={() => setActionTarget({ id: booking.id, action: "refund" })}
+                            >
+                              <RotateCcw className="h-3 w-3 mr-1" />
+                              Refund
+                            </Button>
+                          )}
+                        </div>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}
@@ -268,6 +346,35 @@ const AdminBookings = () => {
           </div>
         </div>
       </div>
+
+      {/* Cancel / Refund confirmation dialog */}
+      <AlertDialog open={!!actionTarget} onOpenChange={(open) => !open && setActionTarget(null)}>
+        <AlertDialogContent className="rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {actionTarget?.action === "cancel" ? "Cancel this booking?" : "Mark as refunded?"}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {actionTarget?.action === "cancel"
+                ? "The booking will be marked as cancelled. The customer will no longer hold a spot in this class."
+                : "This marks the booking as refunded in the system. Make sure you have already processed the refund through Stripe before confirming."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="rounded-xl" disabled={isMutating}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              className={`rounded-xl ${actionTarget?.action === "cancel"
+                  ? "bg-destructive hover:bg-destructive/90"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
+                }`}
+              onClick={handleAction}
+              disabled={isMutating}
+            >
+              {actionTarget?.action === "cancel" ? "Cancel Booking" : "Confirm Refund"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminGuard>
   );
 };

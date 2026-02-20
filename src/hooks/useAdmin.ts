@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
@@ -45,11 +45,11 @@ export const useAdmin = () => {
     };
   }, []);
 
-  const requireAdmin = () => {
+  const requireAdmin = useCallback(() => {
     if (!isLoading && !isAdmin) {
       navigate("/admin/login");
     }
-  };
+  }, [isLoading, isAdmin, navigate]);
 
   return { isAdmin, isLoading, requireAdmin };
 };

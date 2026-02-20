@@ -204,7 +204,7 @@ const BlogEditor = () => {
     } else {
       const { data, error } = await supabase
         .from("blog_posts")
-        .insert({ ...payload, author_id: null })
+        .insert(payload)
         .select("*")
         .single();
       if (error) {
@@ -277,7 +277,7 @@ const BlogEditor = () => {
   };
 
   const renderedPreview = useMemo(() => {
-    const raw = marked.parse(formData.content || "");
+    const raw = marked.parse(formData.content || "", { async: false }) as string;
     return DOMPurify.sanitize(raw);
   }, [formData.content]);
 

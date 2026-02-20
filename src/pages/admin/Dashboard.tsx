@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, FileText, LogOut, Euro, TrendingUp, Home, ClipboardList } from "lucide-react";
+import { Calendar, FileText, LogOut, Euro, TrendingUp, Home, ClipboardList, Users } from "lucide-react";
 import AdminGuard from "@/components/admin/AdminGuard";
 
 const Dashboard = () => {
@@ -14,9 +14,16 @@ const Dashboard = () => {
     year: 0,
   });
   const [isLoadingRevenue, setIsLoadingRevenue] = useState(true);
+  const [weekSummary, setWeekSummary] = useState<{
+    upcomingClasses: number;
+    totalBookings: number;
+    paidBookings: number;
+  }>({ upcomingClasses: 0, totalBookings: 0, paidBookings: 0 });
+  const [isLoadingSummary, setIsLoadingSummary] = useState(true);
 
   useEffect(() => {
     loadRevenueStats();
+    loadWeekSummary();
   }, []);
 
   const loadRevenueStats = async () => {
@@ -61,6 +68,50 @@ const Dashboard = () => {
     }
   };
 
+  const loadWeekSummary = async () => {
+    try {
+      const now = new Date();
+      const weekEnd = new Date(now);
+      weekEnd.setDate(now.getDate() + (7 - ((now.getDay() + 6) % 7)));
+      weekEnd.setHours(23, 59, 59, 999);
+
+      // Upcoming classes this week
+      const { data: classes, error: classesError } = await supabase
+        .from("classes")
+        .select("id")
+        .eq("is_active", true)
+        .gte("starts_at", now.toISOString())
+        .lte("starts_at", weekEnd.toISOString());
+
+      if (classesError) throw classesError;
+
+      // Bookings this week
+      const weekStart = new Date(now);
+      weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+      weekStart.setHours(0, 0, 0, 0);
+
+      const { data: bookings, error: bookingsError } = await supabase
+        .from("bookings")
+        .select("id, status")
+        .gte("created_at", weekStart.toISOString());
+
+      if (bookingsError) throw bookingsError;
+
+      const allBookings = bookings || [];
+      const paidCount = allBookings.filter((b: any) => b.status === "paid").length;
+
+      setWeekSummary({
+        upcomingClasses: (classes || []).length,
+        totalBookings: allBookings.length,
+        paidBookings: paidCount,
+      });
+    } catch (error: any) {
+      console.error("Error loading week summary:", error);
+    } finally {
+      setIsLoadingSummary(false);
+    }
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate("/admin/login");
@@ -77,7 +128,7 @@ const Dashboard = () => {
                   Admin Dashboard
                 </h1>
                 <p className="font-body text-muted-foreground mt-2">
-                  Manage classes and blog posts
+                  Overview of your classes, bookings, and revenue
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -102,6 +153,47 @@ const Dashboard = () => {
               </div>
             </div>
 
+            {/* This Week Summary */}
+            <div className="mb-8">
+              <h2 className="font-heading text-2xl font-medium text-foreground mb-4">
+                This Week
+              </h2>
+              {isLoadingSummary ? (
+                <p className="font-body text-muted-foreground">Loading summary...</p>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Calendar className="h-5 w-5 text-primary" />
+                      <span className="font-body text-sm text-muted-foreground">Upcoming Classes</span>
+                    </div>
+                    <p className="font-heading text-3xl font-medium text-foreground">
+                      {weekSummary.upcomingClasses}
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <div className="flex items-center gap-3 mb-2">
+                      <ClipboardList className="h-5 w-5 text-primary" />
+                      <span className="font-body text-sm text-muted-foreground">Total Bookings</span>
+                    </div>
+                    <p className="font-heading text-3xl font-medium text-foreground">
+                      {weekSummary.totalBookings}
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Users className="h-5 w-5 text-primary" />
+                      <span className="font-body text-sm text-muted-foreground">Confirmed (Paid)</span>
+                    </div>
+                    <p className="font-heading text-3xl font-medium text-foreground">
+                      {weekSummary.paidBookings}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Revenue */}
             <div className="mb-8">
               <h2 className="font-heading text-2xl font-medium text-foreground mb-4">
                 Revenue Overview
@@ -180,7 +272,7 @@ const Dashboard = () => {
                     </h2>
                   </div>
                   <p className="font-body text-muted-foreground">
-                    View paid bookings and statuses
+                    View and manage bookings and statuses
                   </p>
                 </Link>
 
@@ -227,4 +319,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

@@ -47,7 +47,6 @@ export interface BookingPublic {
 
 export interface BlogPost {
   id: string;
-  author_id?: string | null;
   title: string;
   slug: string;
   excerpt: string | null;
