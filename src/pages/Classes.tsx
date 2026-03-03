@@ -112,7 +112,7 @@ const Classes = () => {
         {/* Info Section */}
         <section className="py-16 lg:py-20 bg-sage-section">
           <div className="container mx-auto px-5 lg:px-8">
-            <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
               <div>
                 <h3 className="font-heading text-xl font-medium text-foreground mb-2">
                   First Time?
@@ -127,14 +127,6 @@ const Classes = () => {
                 </h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">
                   24-hour notice required for cancellations. Late cancellations may incur a fee.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-heading text-xl font-medium text-foreground mb-2">
-                  Private Sessions
-                </h3>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  One-on-one sessions available. Contact us to arrange a time that suits you.
                 </p>
               </div>
             </div>

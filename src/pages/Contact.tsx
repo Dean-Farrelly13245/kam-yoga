@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
-import { Mail, MapPin, Phone, Send, MessageCircle, Calendar, User, Instagram } from "lucide-react";
+import { Mail, MapPin, Phone, Send, MessageCircle, Calendar, Instagram } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Please enter a valid email").max(255, "Email must be less than 255 characters"),
   phone: z.string().trim().max(20, "Phone must be less than 20 characters").optional(),
-  subject: z.enum(["general", "booking", "private", "workshop"]),
+  subject: z.enum(["general", "booking", "workshop"]),
   message: z.string().trim().min(1, "Message is required").max(2000, "Message must be less than 2000 characters"),
 });
 
@@ -23,7 +23,6 @@ type ContactFormData = z.infer<typeof contactSchema>;
 const subjectOptions = [
   { value: "general", label: "General Enquiry", icon: MessageCircle },
   { value: "booking", label: "Class Booking", icon: Calendar },
-  { value: "private", label: "Private Session", icon: User },
   { value: "workshop", label: "Workshop Enquiry", icon: Calendar },
 ] as const;
 
