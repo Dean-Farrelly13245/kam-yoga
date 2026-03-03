@@ -30,7 +30,7 @@ const BlogPost = () => {
   useEffect(() => {
     if (!post) return;
     const description = post.excerpt || post.content.slice(0, 150);
-    document.title = `${post.title} | Kam Yoga`;
+    document.title = `${post.title} | Kamyoga`;
     const setMeta = (name: string, content: string) => {
       let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
       if (!tag) {
@@ -232,7 +232,7 @@ const BlogPost = () => {
                       Kellyann
                     </h3>
                     <p className="text-sm text-muted-foreground font-body mb-2">
-                      Founder, Kam Yoga
+                      Founder, Kamyoga
                     </p>
                     <p className="text-sm text-muted-foreground font-body leading-relaxed">
                       Teaching yoga and meditation since 2008, guiding students on their 

@@ -4,46 +4,42 @@ import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-card">
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Decorative Element */}
-          <div className="flex justify-center mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-px bg-primary/40" />
-              <div className="w-2 h-2 rounded-full bg-primary/40" />
-              <div className="w-12 h-px bg-primary/40" />
-            </div>
+    <section className="py-20 lg:py-32 bg-sage-section">
+      <div className="container mx-auto px-5 lg:px-8">
+        <div className="max-w-xl mx-auto text-center">
+          {/* Neutral separator */}
+          <div className="flex justify-center mb-10">
+            <div className="w-8 h-px bg-foreground/20" />
           </div>
 
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-light text-foreground leading-tight">
             Begin Your Journey
           </h2>
           
-          <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-6 font-body text-base sm:text-lg text-muted-foreground leading-loose max-w-md mx-auto">
             Whether you're taking your first step onto the mat or returning after time away, 
             you're welcome here. Come as you are.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button 
               asChild
               size="lg"
-              className="rounded-full px-8 py-6 bg-primary hover:bg-sage-dark text-primary-foreground shadow-card hover:shadow-hover transition-all duration-300 text-base"
+              className="w-full sm:w-auto rounded-full px-8 min-h-[52px] bg-pearl hover:bg-blue-sage-light border border-border/60 hover:border-teal/30 text-foreground shadow-soft hover:shadow-card transition-all duration-300 text-base font-body"
             >
               <Link to="/classes">
                 View Upcoming Classes
-                <ArrowRight className="ml-2" size={18} />
+                <ArrowRight className="ml-2" size={17} />
               </Link>
             </Button>
             <Button 
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full px-8 py-6 border-foreground/20 hover:bg-foreground/5 text-foreground transition-all duration-300 text-base"
+              className="w-full sm:w-auto rounded-full px-8 min-h-[52px] border-foreground/20 hover:bg-foreground/5 text-foreground transition-all duration-300 text-base font-body"
             >
               <Link to="/contact">
-                Contact Kellyann
+                Contact
               </Link>
             </Button>
           </div>

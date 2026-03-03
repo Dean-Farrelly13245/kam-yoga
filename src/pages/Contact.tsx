@@ -82,16 +82,16 @@ const Contact = () => {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-sand-light/50 to-background">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <span className="font-body text-sm uppercase tracking-widest text-primary font-medium">
+        <section className="py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background">
+          <div className="container mx-auto px-5 lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
                 Get in Touch
               </span>
               <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
                 Let's Connect
               </h1>
-              <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed">
+              <p className="mt-6 font-body text-base text-muted-foreground leading-loose">
                 Whether you have a question, want to book a class, or simply wish to say hello — 
                 I would love to hear from you.
               </p>
@@ -101,7 +101,7 @@ const Contact = () => {
 
         {/* Contact Content */}
         <section className="py-16 lg:py-24">
-          <div className="container mx-auto px-6 lg:px-8">
+          <div className="container mx-auto px-5 lg:px-8">
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
               {/* Contact Info */}
               <div className="lg:col-span-2 space-y-8">
@@ -168,13 +168,6 @@ const Contact = () => {
                   </a>
                 </div>
 
-                {/* Quote */}
-                <div className="p-6 bg-lavender-light/50 rounded-xl">
-                  <blockquote className="font-heading text-lg italic text-foreground leading-relaxed">
-                    "Every conversation is an opportunity for connection. I look forward to hearing from you."
-                  </blockquote>
-                  <p className="mt-3 font-body text-sm text-muted-foreground">— Kellyann</p>
-                </div>
               </div>
 
               {/* Contact Form */}
@@ -315,45 +308,6 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-16 lg:py-20 bg-card">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="font-heading text-2xl md:text-3xl font-light text-foreground text-center mb-12">
-                Common Questions
-              </h2>
-              <div className="space-y-6">
-                {[
-                  {
-                    q: "Do I need experience to join a class?",
-                    a: "Not at all. All classes welcome complete beginners. I will guide you through everything and offer modifications as needed.",
-                  },
-                  {
-                    q: "What should I bring to a class?",
-                    a: "Just yourself and comfortable clothing. Mats and props are provided. You may bring your own mat if you prefer.",
-                  },
-                  {
-                    q: "Do you offer private one-on-one sessions?",
-                    a: "Yes, private sessions are available for those who prefer personalised attention or have specific needs. Contact me to arrange a time.",
-                  },
-                  {
-                    q: "What is your cancellation policy?",
-                    a: "Please provide at least 24 hours notice for cancellations. Late cancellations may incur a fee to cover the reserved spot.",
-                  },
-                ].map((faq, index) => (
-                  <div key={index} className="bg-background rounded-xl p-6 border border-border/50">
-                    <h3 className="font-heading text-lg font-medium text-foreground mb-2">
-                      {faq.q}
-                    </h3>
-                    <p className="font-body text-muted-foreground leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

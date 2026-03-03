@@ -52,14 +52,21 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         // Kam Yoga custom colors
+        pearl: "hsl(var(--pearl))",
         sage: {
           DEFAULT: "hsl(var(--sage))",
           light: "hsl(var(--sage-light))",
           dark: "hsl(var(--sage-dark))",
+          section: "hsl(var(--sage-section))",
         },
-        lavender: {
-          DEFAULT: "hsl(var(--lavender))",
-          light: "hsl(var(--lavender-light))",
+        "blue-sage": {
+          DEFAULT: "hsl(var(--blue-sage))",
+          light: "hsl(var(--blue-sage-light))",
+          section: "hsl(var(--blue-sage-section))",
+        },
+        teal: {
+          DEFAULT: "hsl(var(--teal))",
+          light: "hsl(var(--teal-light))",
         },
         clay: {
           DEFAULT: "hsl(var(--clay))",

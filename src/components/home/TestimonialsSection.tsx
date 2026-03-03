@@ -20,41 +20,41 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-gradient-to-b from-background to-sage-light/30">
-      <div className="container mx-auto px-6 lg:px-8">
+    <section className="py-20 lg:py-32 bg-pearl">
+      <div className="container mx-auto px-5 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="font-body text-sm uppercase tracking-widest text-primary font-medium">
+        <div className="max-w-3xl mx-auto text-center mb-14 lg:mb-20">
+          <span className="font-body text-xs uppercase tracking-widest text-teal font-medium">
             Kind Words
           </span>
-          <h2 className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-light text-foreground">
+          <h2 className="mt-3 font-heading text-3xl sm:text-4xl md:text-5xl font-light text-foreground">
             From the Community
           </h2>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="relative bg-card rounded-2xl p-8 shadow-soft hover:shadow-card transition-shadow duration-300 border border-border/50"
+              className="bg-sage-section rounded-2xl p-6 sm:p-8 border border-sage/30 hover:shadow-card transition-all duration-300 flex flex-col"
             >
-              {/* Quote Icon */}
-              <div className="absolute -top-4 left-8">
-                <div className="p-2 rounded-full bg-primary shadow-soft">
-                  <Quote size={16} className="text-primary-foreground" />
+              {/* Teal quote mark */}
+              <div className="mb-5">
+                <div className="inline-flex p-2 rounded-full bg-teal-light">
+                  <Quote size={14} className="text-teal" />
                 </div>
               </div>
 
-              <blockquote className="mt-4 font-body text-foreground leading-relaxed">
+              <blockquote className="font-body text-sm sm:text-base text-foreground leading-relaxed flex-1">
                 "{testimonial.quote}"
               </blockquote>
 
-              <div className="mt-6 pt-6 border-t border-border">
+              <div className="mt-6 pt-5 border-t border-sage/40">
                 <p className="font-heading text-lg font-medium text-foreground">
                   {testimonial.author}
                 </p>
-                <p className="font-body text-sm text-muted-foreground">
+                <p className="font-body text-xs text-muted-foreground mt-0.5">
                   {testimonial.role}
                 </p>
               </div>

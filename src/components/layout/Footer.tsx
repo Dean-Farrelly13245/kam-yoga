@@ -1,39 +1,35 @@
 import { Link } from "react-router-dom";
-import { Heart, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-sage-dark/10 border-t border-foreground/10">
+      <div className="container mx-auto px-5 lg:px-8 py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="font-heading text-3xl font-medium text-foreground">
-              Kam Yoga
+            <Link to="/" className="font-heading text-2xl font-medium text-foreground hover:text-foreground/70 transition-colors duration-300">
+              Kamyoga
             </Link>
-            <p className="mt-4 text-muted-foreground font-body leading-relaxed max-w-md">
+            <p className="mt-4 text-muted-foreground font-body text-xs leading-loose max-w-xs">
               A lifelong journey of yoga, meditation, and heart connection. Guided by over 
               two decades of practice and lived experience.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
-              <Heart size={16} className="text-primary" />
-              <span>Teaching with heart since 2008</span>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading text-lg font-medium text-foreground mb-4">
+            <h4 className="font-body text-[10px] uppercase tracking-[0.2em] font-semibold text-foreground/50 mb-5">
               Explore
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               {["About", "Classes", "Blog", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
                     to={`/${item.toLowerCase()}`}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-body text-sm"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-body text-xs leading-loose"
                   >
                     {item}
                   </Link>
@@ -44,21 +40,21 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading text-lg font-medium text-foreground mb-4">
+            <h4 className="font-body text-[10px] uppercase tracking-[0.2em] font-semibold text-foreground/50 mb-5">
               Connect
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               <li>
                 <a
                   href="mailto:hello@kamyoga.com"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 font-body text-sm"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 font-body text-xs"
                 >
-                  <Mail size={16} />
+                  <Mail size={13} className="shrink-0" />
                   hello@kamyoga.com
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-muted-foreground font-body text-sm">
-                <MapPin size={16} className="mt-0.5 shrink-0" />
+              <li className="flex items-start gap-2 text-muted-foreground font-body text-xs">
+                <MapPin size={13} className="mt-0.5 shrink-0" />
                 <span>Ireland</span>
               </li>
             </ul>
@@ -66,15 +62,10 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground font-body">
-              © {currentYear} Kam Yoga. All rights reserved.
-            </p>
-            <p className="text-sm text-muted-foreground font-body flex items-center gap-1">
-              Made with <Heart size={14} className="text-primary" /> for the practice
-            </p>
-          </div>
+        <div className="mt-14 pt-6 border-t border-foreground/10">
+          <p className="text-[11px] text-muted-foreground/60 font-body text-center sm:text-left">
+            © {currentYear} Kamyoga. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -10,7 +10,7 @@ const Blog = () => {
 
   useEffect(() => {
     loadPosts();
-    document.title = "Blog | Kam Yoga";
+    document.title = "Blog | Kamyoga";
   }, []);
 
   const loadPosts = async () => {
@@ -39,27 +39,22 @@ const Blog = () => {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-lavender-light/50 to-background">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <span className="font-body text-sm uppercase tracking-widest text-primary font-medium">
+        <section className="py-20 lg:py-28 bg-gradient-to-b from-blue-sage-section to-background">
+          <div className="container mx-auto px-5 lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
                 The Journal
               </span>
               <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
                 Reflections on the Path
               </h1>
-              <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed">
-                Thoughts on yoga, meditation, spiritual growth, and bringing 
-                presence into everyday life.
-              </p>
             </div>
-
           </div>
         </section>
 
         {/* Blog Posts */}
         <section className="py-12 lg:py-16">
-          <div className="container mx-auto px-6 lg:px-8">
+          <div className="container mx-auto px-5 lg:px-8">
             <div className="max-w-6xl mx-auto">
               {isLoading ? (
                 <div className="text-center py-16">

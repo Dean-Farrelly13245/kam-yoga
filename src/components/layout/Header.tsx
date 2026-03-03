@@ -34,15 +34,15 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
-      <div className="container mx-auto px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-pearl/90 backdrop-blur-md border-b border-border/40">
+      <div className="container mx-auto px-5 lg:px-8">
+        <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link 
             to="/" 
-            className="font-heading text-2xl md:text-3xl font-medium text-foreground tracking-wide hover:text-primary transition-colors duration-300"
+            className="font-heading text-2xl md:text-3xl font-medium text-foreground tracking-wide hover:text-teal transition-colors duration-300"
           >
-            Kam Yoga
+            Kamyoga
           </Link>
 
           {/* Desktop Navigation */}
@@ -52,7 +52,7 @@ const Header = () => {
                 <Link
                   to={link.href}
                   onClick={link.href === "/#journey" ? handleJourneyClick : undefined}
-                  className="font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300"
+                  className="font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-teal hover:after:w-full after:transition-all after:duration-300 pb-0.5"
                 >
                   {link.label}
                 </Link>
@@ -64,7 +64,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Button 
               asChild
-              className="rounded-full px-6 bg-primary hover:bg-sage-dark text-primary-foreground shadow-soft hover:shadow-hover transition-all duration-300"
+              className="rounded-full px-6 py-2 bg-sage-section hover:bg-sage text-foreground border border-sage/40 hover:border-sage shadow-soft hover:shadow-hover transition-all duration-300 font-body text-sm"
             >
               <Link to="/classes">Book a Class</Link>
             </Button>
@@ -73,10 +73,10 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 text-foreground hover:text-teal transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </nav>
 
@@ -84,10 +84,10 @@ const Header = () => {
         <div
           className={cn(
             "md:hidden overflow-hidden transition-all duration-300 ease-out",
-            isOpen ? "max-h-96 pb-6" : "max-h-0"
+            isOpen ? "max-h-screen pb-6" : "max-h-0"
           )}
         >
-          <ul className="flex flex-col gap-4 pt-4">
+          <ul className="flex flex-col gap-1 pt-2 border-t border-border/40">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
@@ -99,16 +99,16 @@ const Header = () => {
                       setIsOpen(false);
                     }
                   }}
-                  className="block font-body text-base text-muted-foreground hover:text-foreground transition-colors duration-300 py-2"
+                  className="block font-body text-base text-muted-foreground hover:text-foreground transition-colors duration-300 py-3 px-2 rounded-lg hover:bg-sage-light/40"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li className="pt-2">
+            <li className="pt-3 pb-1">
               <Button 
                 asChild
-                className="w-full rounded-full bg-primary hover:bg-sage-dark text-primary-foreground"
+                className="w-full rounded-full py-3 bg-sage-section hover:bg-sage text-foreground border border-sage/40 hover:border-sage font-body min-h-[48px]"
               >
                 <Link to="/classes" onClick={() => setIsOpen(false)}>
                   Book a Class

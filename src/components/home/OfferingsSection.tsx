@@ -30,53 +30,48 @@ const offerings = [
 
 const OfferingsSection = () => {
   return (
-    <section className="py-24 lg:py-32 bg-card">
-      <div className="container mx-auto px-6 lg:px-8">
+    <section className="py-20 lg:py-32 bg-blue-sage-section">
+      <div className="container mx-auto px-5 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="font-body text-sm uppercase tracking-widest text-primary font-medium">
+        <div className="max-w-3xl mx-auto text-center mb-14 lg:mb-20">
+          <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
             Offerings
           </span>
-          <h2 className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-light text-foreground">
+          <h2 className="mt-3 font-heading text-3xl sm:text-4xl md:text-5xl font-light text-foreground">
             Ways to Practice Together
           </h2>
-          <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-5 font-body text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             Whether you're new to yoga or deepening an established practice, 
             there's a space for you here.
           </p>
         </div>
 
         {/* Offerings Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {offerings.map((offering, index) => {
             const Icon = offering.icon;
             return (
               <Link
                 key={index}
                 to={offering.link}
-                className="group relative bg-background rounded-2xl p-6 shadow-soft hover:shadow-hover transition-all duration-300 border border-border/50 hover:border-primary/20"
+                className="group bg-pearl rounded-2xl p-6 sm:p-7 border border-border/30 hover:bg-sage-light/40 active:bg-sage-light/60 transition-colors duration-200 flex flex-col"
               >
-                {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-sage-light/30 to-lavender-light/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <div className="relative">
-                  <div className="inline-flex p-3 rounded-xl bg-sand-light group-hover:bg-sage-light transition-colors duration-300 mb-5">
-                    <Icon size={24} className="text-clay group-hover:text-primary transition-colors duration-300" />
-                  </div>
-                  
-                  <h3 className="font-heading text-xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-                    {offering.title}
-                  </h3>
-                  
-                  <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
-                    {offering.description}
-                  </p>
-                  
-                  <span className="inline-flex items-center gap-1 font-body text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    View classes
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
-                  </span>
+                <div className="inline-flex p-2.5 rounded-lg bg-foreground/5 mb-5 self-start">
+                  <Icon size={20} className="text-foreground/50" />
                 </div>
+                
+                <h3 className="font-heading text-xl font-medium text-foreground mb-2">
+                  {offering.title}
+                </h3>
+                
+                <p className="font-body text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
+                  {offering.description}
+                </p>
+                
+                <span className="inline-flex items-center gap-1.5 font-body text-xs text-foreground/40 group-hover:text-foreground/60 transition-colors duration-200">
+                  View classes
+                  <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                </span>
               </Link>
             );
           })}

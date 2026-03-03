@@ -61,16 +61,16 @@ const Classes = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-sage-light/50 to-background">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <span className="font-body text-sm uppercase tracking-widest text-primary font-medium">
+        <section className="py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background">
+          <div className="container mx-auto px-5 lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
                 Classes & Workshops
               </span>
               <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
                 Find Your Practice
               </h1>
-              <p className="mt-6 font-body text-lg text-muted-foreground leading-relaxed">
+              <p className="mt-6 font-body text-base text-muted-foreground leading-loose">
                 All levels welcome. In-person classes at {siteLocation.addressLine}.
               </p>
             </div>
@@ -78,7 +78,7 @@ const Classes = () => {
         </section>
 
         {/* Class Listings */}
-        <section className="py-10 lg:py-16">
+        <section className="py-12 lg:py-16">
           <div className="container mx-auto px-6 lg:px-8">
             {isLoading ? (
               <div className="text-center py-16">
@@ -110,9 +110,9 @@ const Classes = () => {
         </section>
 
         {/* Info Section */}
-        <section className="py-16 lg:py-20 bg-card">
-          <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <section className="py-16 lg:py-20 bg-sage-section">
+          <div className="container mx-auto px-5 lg:px-8">
+            <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
                 <h3 className="font-heading text-xl font-medium text-foreground mb-2">
                   First Time?
