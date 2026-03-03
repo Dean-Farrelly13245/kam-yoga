@@ -11,64 +11,64 @@
     /* ─── Base palette ─────────────────────────────────────── */
     /* #F7F3EC  Luminous Pearl — main page background */
     --background: 38 35% 95%;
-    --foreground: 25 18% 22%; /* Dark charcoal — never pure black */
+    --foreground: 25 20% 18%; /* Dark charcoal — slightly deeper for readability */
 
-    /* Slightly deeper pearl for alternate card surfaces */
-    --card: 140 18% 88%;     /* soft sage card — #BCC9BF area */
-    --card-foreground: 25 18% 22%;
+    /* Sage card surface — clearly distinct from pearl */
+    --card: 140 20% 82%;
+    --card-foreground: 25 20% 18%;
 
     --popover: 38 35% 95%;
-    --popover-foreground: 25 18% 22%;
+    --popover-foreground: 25 20% 18%;
 
     /* Coastal Teal — accent only, used very sparingly */
-    --primary: 180 22% 42%;
+    --primary: 180 22% 38%;
     --primary-foreground: 38 35% 96%;
 
     /* Warm sand secondary */
-    --secondary: 32 28% 88%;
-    --secondary-foreground: 25 18% 28%;
+    --secondary: 32 28% 84%;
+    --secondary-foreground: 25 20% 25%;
 
     /* Muted warm grey */
-    --muted: 35 20% 92%;
-    --muted-foreground: 25 12% 48%;
+    --muted: 35 20% 90%;
+    --muted-foreground: 25 14% 42%;
 
     /* Soft blue-sage accent surface */
-    --accent: 185 25% 73%;   /* #ADC6C6 blue-sage */
-    --accent-foreground: 185 30% 22%;
+    --accent: 185 26% 65%;
+    --accent-foreground: 185 30% 20%;
 
     --destructive: 0 65% 55%;
     --destructive-foreground: 38 35% 96%;
 
-    --border: 35 18% 84%;
-    --input: 35 18% 84%;
-    --ring: 180 22% 42%;
+    --border: 35 20% 76%;
+    --input: 35 20% 76%;
+    --ring: 180 22% 38%;
 
     --radius: 0.75rem;
 
     /* ─── Custom Kam Yoga surface tokens ───────────────────── */
-    /* Pearl: #F7F3EC */
+    /* Pearl: #F7F3EC — lightest surface, always the "bright" layer */
     --pearl: 38 35% 95%;
 
-    /* Soft sage: #BCC9BF */
-    --sage: 140 18% 76%;
-    --sage-light: 140 22% 90%;
-    --sage-dark: 140 20% 54%;
-    --sage-section: 140 18% 88%; /* large section bg */
+    /* Soft sage — darkened for clear contrast vs pearl */
+    --sage: 140 20% 68%;
+    --sage-light: 140 22% 85%;
+    --sage-dark: 140 22% 46%;
+    --sage-section: 140 20% 81%; /* was 88% — now 14pt gap vs pearl */
 
-    /* Blue-sage: #ADC6C6 */
-    --blue-sage: 185 25% 73%;
-    --blue-sage-light: 185 28% 88%;
-    --blue-sage-section: 185 22% 86%;
+    /* Blue-sage — darkened for clear contrast vs pearl */
+    --blue-sage: 185 26% 65%;
+    --blue-sage-light: 185 28% 81%;
+    --blue-sage-section: 185 24% 78%; /* was 86% — now 17pt gap vs pearl */
 
     /* Coastal Teal — only for tiny accent elements */
-    --teal: 180 22% 42%;
-    --teal-light: 180 28% 88%;
+    --teal: 180 22% 38%;
+    --teal-light: 180 28% 82%;
 
     /* Warm neutrals */
-    --clay: 25 30% 60%;
-    --clay-light: 30 25% 88%;
-    --sand: 35 28% 83%;
-    --sand-light: 38 30% 91%;
+    --clay: 25 30% 56%;
+    --clay-light: 30 25% 84%;
+    --sand: 35 28% 79%;
+    --sand-light: 38 30% 87%;
     --cream: 38 35% 95%;
 
     /* ─── Typography ───────────────────────────────────────── */

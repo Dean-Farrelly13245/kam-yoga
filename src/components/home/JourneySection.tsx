@@ -62,8 +62,8 @@ const JourneySection = () => {
         {/* Timeline */}
         <div className="max-w-3xl mx-auto">
           <div className="relative">
-            {/* Vertical line — very subtle */}
-            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-foreground/10 md:-translate-x-px" />
+            {/* Vertical line */}
+            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-foreground/20 md:-translate-x-px" />
 
             {milestones.map((milestone, index) => {
               const isEven = index % 2 === 0;
@@ -75,12 +75,12 @@ const JourneySection = () => {
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
-                  {/* Dot — small, neutral */}
-                  <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-foreground/25 z-10 mt-6" />
+                  {/* Dot */}
+                  <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-foreground/40 z-10 mt-6" />
                   
                   {/* Card */}
                   <div className={`ml-12 md:ml-0 md:w-1/2 ${isEven ? "md:pr-8 md:text-right" : "md:pl-8"}`}>
-                    <div className="bg-pearl rounded-xl p-5 sm:p-6 border border-border/30">
+                    <div className="bg-pearl rounded-xl p-5 sm:p-6 border border-border/60">
                       <span className="font-body text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">
                         {milestone.year}
                       </span>

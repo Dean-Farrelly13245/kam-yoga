@@ -25,7 +25,7 @@ const CTASection = () => {
             <Button 
               asChild
               size="lg"
-              className="w-full sm:w-auto rounded-full px-8 min-h-[52px] bg-pearl hover:bg-blue-sage-light border border-border/60 hover:border-teal/30 text-foreground shadow-soft hover:shadow-card transition-all duration-300 text-base font-body"
+              className="w-full sm:w-auto rounded-full px-8 min-h-[52px] bg-pearl hover:bg-sand-light border border-foreground/25 hover:border-foreground/35 text-foreground shadow-soft hover:shadow-card transition-all duration-300 text-base font-body"
             >
               <Link to="/classes">
                 View Upcoming Classes

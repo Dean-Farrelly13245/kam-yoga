@@ -5,7 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-sage-dark/10 border-t border-foreground/10">
+    <footer className="bg-sage-dark/20 border-t border-foreground/15">
       <div className="container mx-auto px-5 lg:px-8 py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 pt-6 border-t border-foreground/10">
+        <div className="mt-14 pt-6 border-t border-foreground/15">
           <p className="text-[11px] text-muted-foreground/60 font-body text-center sm:text-left">
             © {currentYear} Kamyoga. All rights reserved.
           </p>

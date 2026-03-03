@@ -54,10 +54,10 @@ const OfferingsSection = () => {
               <Link
                 key={index}
                 to={offering.link}
-                className="group bg-pearl rounded-2xl p-6 sm:p-7 border border-border/30 hover:bg-sage-light/40 active:bg-sage-light/60 transition-colors duration-200 flex flex-col"
+                className="group bg-pearl rounded-2xl p-6 sm:p-7 border border-border/60 hover:bg-sage-light/50 active:bg-sage-light/70 transition-colors duration-200 flex flex-col"
               >
-                <div className="inline-flex p-2.5 rounded-lg bg-foreground/5 mb-5 self-start">
-                  <Icon size={20} className="text-foreground/50" />
+                <div className="inline-flex p-2.5 rounded-lg bg-foreground/10 mb-5 self-start">
+                  <Icon size={20} className="text-foreground/60" />
                 </div>
                 
                 <h3 className="font-heading text-xl font-medium text-foreground mb-2">
