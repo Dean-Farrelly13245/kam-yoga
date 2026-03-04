@@ -22,6 +22,7 @@ import BlogEditor from "./pages/admin/BlogEditor";
 import AdminBookings from "./pages/admin/Bookings";
 import AdminAnalytics from "./pages/admin/Analytics";
 import TestModeBanner from "./components/layout/TestModeBanner";
+import ScrollToTop from "./components/ui/scroll-to-top";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter basename={basename}>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/classes" element={<Classes />} />

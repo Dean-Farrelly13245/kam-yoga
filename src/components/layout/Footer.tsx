@@ -25,10 +25,6 @@ const Footer = () => {
               Yoga by heart
             </p>
             <div className="mt-5 w-8 h-px bg-golden/30" />
-            <p className="mt-5 text-pearl/52 font-body text-[0.8rem] leading-[1.9] max-w-xs">
-              A lifelong journey of yoga, meditation, and heart connection.
-              Guided by over two decades of practice and lived experience.
-            </p>
           </div>
 
           {/* Quick Links */}
@@ -46,7 +42,7 @@ const Footer = () => {
                 <li key={item.label}>
                   <Link
                     to={item.href}
-                    className="text-pearl/52 hover:text-pearl/85 transition-colors duration-300 font-body text-[0.8rem] leading-loose"
+                    className="text-pearl/70 hover:text-pearl/95 transition-colors duration-300 font-body text-[0.8rem] leading-loose"
                   >
                     {item.label}
                   </Link>
@@ -64,13 +60,13 @@ const Footer = () => {
               <li>
                 <a
                   href="tel:0851051294"
-                  className="flex items-center gap-2.5 text-pearl/52 hover:text-pearl/85 transition-colors duration-300 font-body text-[0.8rem]"
+                  className="flex items-center gap-2.5 text-pearl/70 hover:text-pearl/95 transition-colors duration-300 font-body text-[0.8rem]"
                 >
                   <Phone size={13} className="shrink-0 text-golden/50" />
                   085 105 1294
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-pearl/52 font-body text-[0.8rem]">
+              <li className="flex items-start gap-2.5 text-pearl/70 font-body text-[0.8rem]">
                 <MapPin size={13} className="mt-0.5 shrink-0 text-golden/50" />
                 <span>Ireland</span>
               </li>
@@ -80,10 +76,10 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-6 border-t border-pearl/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[11px] text-pearl/35 font-body">
+          <p className="text-[11px] text-pearl/50 font-body">
             © {currentYear} KAM YOGA. All rights reserved.
           </p>
-          <p className="text-[11px] text-pearl/25 font-body italic font-heading">
+          <p className="text-[11px] text-pearl/40 font-body italic font-heading">
             Yoga by heart
           </p>
         </div>
