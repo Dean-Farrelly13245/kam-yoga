@@ -67,6 +67,7 @@ export default {
         teal: {
           DEFAULT: "hsl(var(--teal))",
           light: "hsl(var(--teal-light))",
+          dark: "hsl(var(--teal-dark))",
         },
         lagoon: {
           DEFAULT: "hsl(var(--lagoon))",

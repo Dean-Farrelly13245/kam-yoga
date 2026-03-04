@@ -56,6 +56,7 @@
     /* Coastal Teal #729A94 */
     --teal: 168 16% 53%;
     --teal-light: 168 20% 88%;
+    --teal-dark: 168 20% 38%;
 
     /* Deep Lagoon #3E5F5C */
     --lagoon: 174 21% 31%;
@@ -136,6 +137,7 @@
     --sand-light: 28 12% 18%;
     --teal: 168 20% 55%;
     --teal-light: 168 14% 22%;
+    --teal-dark: 168 18% 45%;
     --lagoon: 174 21% 45%;
     --lagoon-dark: 174 25% 14%;
     --golden: 28 35% 50%;

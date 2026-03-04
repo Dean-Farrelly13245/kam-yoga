@@ -103,7 +103,7 @@ const OfferingsSection = () => {
         </div>
       </div>
 
-      {/* Wave transition to Journey section (lagoon) */}
+      {/* Wave transition to Journey section (teal) */}
       <div className="absolute bottom-0 left-0 right-0 leading-none pointer-events-none">
         <svg
           viewBox="0 0 1440 80"
@@ -113,7 +113,7 @@ const OfferingsSection = () => {
         >
           <path
             d="M0,40 C480,80 960,0 1440,40 L1440,80 L0,80 Z"
-            style={{ fill: "hsl(var(--lagoon))" }}
+            style={{ fill: "hsl(var(--teal))" }}
           />
         </svg>
       </div>

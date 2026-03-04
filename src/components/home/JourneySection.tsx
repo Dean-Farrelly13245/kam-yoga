@@ -56,10 +56,10 @@ const JourneySection = () => {
   return (
     <section
       id="journey"
-      className="relative py-24 lg:py-36 bg-lagoon overflow-hidden"
+      className="relative py-24 lg:py-36 bg-teal overflow-hidden"
     >
       {/* Gradient depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-lagoon-dark/60 via-lagoon to-lagoon/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/60 via-teal to-teal/90 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_35%,hsl(var(--teal)_/_0.12),transparent_50%),radial-gradient(circle_at_85%_65%,hsl(var(--golden)_/_0.07),transparent_45%)] pointer-events-none" />
 
       <div className="relative container mx-auto px-5 lg:px-8">

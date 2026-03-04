@@ -5,9 +5,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-lagoon overflow-hidden">
+    <footer className="relative bg-teal overflow-hidden">
       {/* Subtle depth gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-lagoon to-lagoon-dark pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-teal to-teal-dark pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsl(var(--teal)_/_0.1),transparent_50%)] pointer-events-none" />
 
       <div className="relative container mx-auto px-5 lg:px-8 pt-20 pb-10 lg:pt-24 lg:pb-12">

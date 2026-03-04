@@ -66,7 +66,7 @@ const CTASection = () => {
         </div>
       </div>
 
-      {/* Wave transition to Footer (lagoon) */}
+      {/* Wave transition to Footer (teal) */}
       <div className="absolute bottom-0 left-0 right-0 leading-none pointer-events-none">
         <svg
           viewBox="0 0 1440 80"
@@ -76,7 +76,7 @@ const CTASection = () => {
         >
           <path
             d="M0,48 C480,0 960,80 1440,48 L1440,80 L0,80 Z"
-            style={{ fill: "hsl(var(--lagoon))" }}
+            style={{ fill: "hsl(var(--teal))" }}
           />
         </svg>
       </div>

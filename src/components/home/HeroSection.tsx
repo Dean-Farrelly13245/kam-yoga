@@ -18,9 +18,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden bg-lagoon">
+    <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden bg-teal">
       {/* Layered depth gradients */}
-      <div className="absolute inset-0 bg-gradient-to-b from-lagoon-dark via-lagoon to-lagoon/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark via-teal to-teal/85" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_15%,hsl(var(--teal)_/_0.2),transparent_45%),radial-gradient(ellipse_at_80%_85%,hsl(var(--golden)_/_0.12),transparent_45%)]" />
 
       {/* Soft ambient glows */}
@@ -41,7 +41,7 @@ const HeroSection = () => {
           </div>
 
           {/* Brand Name */}
-          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-medium text-pearl tracking-[0.25em] leading-none drop-shadow-[0_2px_32px_rgba(0,0,0,0.2)] uppercase">
+          <h1 className="font-heading text-[2.9rem] sm:text-6xl md:text-7xl lg:text-8xl font-medium text-pearl tracking-[0.12em] sm:tracking-[0.2em] md:tracking-[0.25em] leading-none drop-shadow-[0_2px_32px_rgba(0,0,0,0.2)] uppercase whitespace-nowrap">
             KAM YOGA
           </h1>
 
@@ -60,7 +60,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-[#E0C39F] hover:bg-[#D8B684] text-lagoon-dark font-semibold shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_32px_rgba(0,0,0,0.25)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 text-base font-body tracking-wide"
+              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-[#E0C39F] hover:bg-[#D8B684] text-teal-dark font-semibold shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_32px_rgba(0,0,0,0.25)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 text-base font-body tracking-wide"
             >
               <Link to="/classes">
                 Book a Class
@@ -70,7 +70,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-pearl text-lagoon-dark border border-pearl/80 hover:bg-pearl/95 hover:border-pearl transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] text-base font-body shadow-[0_2px_16px_rgba(0,0,0,0.18)]"
+              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-pearl text-teal-dark border border-pearl/80 hover:bg-pearl/95 hover:border-pearl transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] text-base font-body shadow-[0_2px_16px_rgba(0,0,0,0.18)]"
             >
               <Link to="/classes">
                 View Classes
