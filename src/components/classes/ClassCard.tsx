@@ -21,7 +21,7 @@ const ClassCard = ({ classItem, onBook }: ClassCardProps) => {
     : null;
 
   return (
-    <div className="group bg-card rounded-2xl border border-border/50 shadow-soft hover:shadow-card transition-all duration-300 overflow-hidden">
+    <div className="group bg-card rounded-2xl border border-border/50 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 overflow-hidden">
       {/* Header */}
       <div className="p-6 pb-4">
         <div className="flex items-start justify-between gap-4 mb-3">
@@ -77,7 +77,7 @@ const ClassCard = ({ classItem, onBook }: ClassCardProps) => {
           return isUpcoming && hasSpots ? (
             <Button 
               onClick={() => onBook(classItem)}
-              className="w-full rounded-xl bg-primary hover:bg-sage-dark text-primary-foreground transition-all duration-300"
+              className="w-full rounded-xl bg-primary hover:bg-sage-dark text-primary-foreground transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
             >
               Book Now
             </Button>

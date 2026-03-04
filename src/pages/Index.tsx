@@ -7,7 +7,6 @@ import AboutSection from "@/components/home/AboutSection";
 import PhilosophySection from "@/components/home/PhilosophySection";
 import OfferingsSection from "@/components/home/OfferingsSection";
 import JourneySection from "@/components/home/JourneySection";
-import TestimonialsSection from "@/components/home/TestimonialsSection";
 import CTASection from "@/components/home/CTASection";
 
 const Index = () => {
@@ -30,6 +29,25 @@ const Index = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    const targets = document.querySelectorAll("[data-reveal]");
+    targets.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -39,7 +57,6 @@ const Index = () => {
         <PhilosophySection />
         <OfferingsSection />
         <JourneySection />
-        <TestimonialsSection />
         <CTASection />
       </main>
       <Footer />

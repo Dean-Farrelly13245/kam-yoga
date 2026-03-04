@@ -61,13 +61,14 @@ const Classes = () => {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background">
+        <section className="relative py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background overflow-hidden">
+          <div className="absolute inset-x-0 -bottom-1 h-10 bg-gradient-to-b from-transparent to-background/60 pointer-events-none" />
           <div className="container mx-auto px-5 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
                 Classes & Workshops
               </span>
-              <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
+              <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-medium text-foreground">
                 Find Your Practice
               </h1>
               <p className="mt-6 font-body text-base text-muted-foreground leading-loose">
@@ -78,8 +79,8 @@ const Classes = () => {
         </section>
 
         {/* Class Listings */}
-        <section className="py-12 lg:py-16">
-          <div className="container mx-auto px-6 lg:px-8">
+        <section className="py-14 lg:py-16">
+          <div className="container mx-auto px-5 lg:px-8">
             {isLoading ? (
               <div className="text-center py-16">
                 <p className="font-body text-lg text-muted-foreground">
@@ -110,7 +111,8 @@ const Classes = () => {
         </section>
 
         {/* Info Section */}
-        <section className="py-16 lg:py-20 bg-sage-section">
+        <section className="relative py-16 lg:py-20 bg-sage-section overflow-hidden">
+          <div className="absolute inset-x-0 -top-1 h-10 bg-gradient-to-b from-background/45 to-transparent pointer-events-none" />
           <div className="container mx-auto px-5 lg:px-8">
             <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
               <div>

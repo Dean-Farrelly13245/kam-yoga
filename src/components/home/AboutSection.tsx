@@ -4,60 +4,64 @@ import { ArrowRight } from "lucide-react";
 
 const AboutSection = () => {
   return (
-    <section className="py-20 lg:py-28 bg-sand">
+    <section className="relative py-24 lg:py-36 bg-sand overflow-hidden">
+      {/* Subtle top blend from hero wave */}
+      <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sand to-transparent pointer-events-none" />
+
+      {/* Decorative background texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,hsl(var(--golden)_/_0.07),transparent_55%)] pointer-events-none" />
+
       <div className="container mx-auto px-5 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-          {/* Text Content */}
-          <div>
-            <span className="font-body text-xs uppercase tracking-[0.2em] text-accent font-medium">
-              Welcome
-            </span>
-            <h2 className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-foreground leading-tight">
-              Here at{" "}
-              <span className="text-primary italic">Kam Yoga Sanctuary</span>
-            </h2>
-            <p className="mt-6 font-body text-base text-muted-foreground leading-loose">
-              Welcome to Kam Yoga Sanctuary, a nurturing space where we honour the ancient 
-              wisdom of yoga to guide you on your journey to balance and well-being. 
-              Our holistic approach is centred around three foundational principles: 
-              movement, stillness, and heart connection.
-            </p>
-            <p className="mt-4 font-body text-base text-muted-foreground leading-loose">
-              With over two decades of practice and teaching, we create a warm, 
-              authentic environment where every student — beginner or experienced — 
-              can find their own path to inner peace.
-            </p>
-            <div className="mt-8">
-              <Button
-                asChild
-                className="rounded-full px-8 min-h-[48px] bg-golden hover:bg-golden/90 text-lagoon-dark font-medium shadow-soft hover:shadow-card transition-all duration-300 font-body"
-              >
-                <Link to="/#journey">
-                  Our Journey
-                  <ArrowRight className="ml-2" size={16} />
-                </Link>
-              </Button>
-            </div>
+        <div className="max-w-2xl mx-auto text-center">
+
+          {/* Section label */}
+          <div data-reveal>
+            <span className="section-label">Welcome</span>
           </div>
 
-          {/* Visual Card */}
-          <div className="relative">
-            <div className="bg-sage/30 rounded-3xl p-8 lg:p-10 border border-teal/20">
-              <div className="space-y-6">
-                <div className="w-16 h-16 rounded-full bg-teal/20 flex items-center justify-center">
-                  <span className="font-heading text-2xl text-primary">🕉</span>
-                </div>
-                <blockquote className="font-heading text-xl sm:text-2xl text-foreground italic leading-relaxed">
-                  "Yoga is not about touching your toes. It's about what you learn on the way down."
-                </blockquote>
-                <p className="font-body text-sm text-muted-foreground">— Jigar Gor</p>
-              </div>
-            </div>
-            {/* Decorative accent */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-golden/15 rounded-full blur-2xl pointer-events-none" />
+          {/* Heading */}
+          <h2
+            data-reveal
+            data-reveal-delay="1"
+            className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-foreground leading-tight"
+          >
+            Here at{" "}
+            <span className="text-primary italic">KAM YOGA</span>
+          </h2>
+
+          {/* Decorative separator */}
+          <div data-reveal data-reveal-delay="2" className="flex justify-center items-center gap-3 mt-7 mb-7">
+            <div className="w-8 h-px bg-golden/45" />
+            <div className="w-1 h-1 rounded-full bg-golden/60" />
+            <div className="w-8 h-px bg-golden/45" />
+          </div>
+
+          {/* Body text */}
+          <div data-reveal data-reveal-delay="2">
+            <p className="font-body text-base sm:text-[1.05rem] text-muted-foreground leading-[1.85]">
+              With over two decades of practice and teaching, I create a warm,
+              authentic environment where every student — beginner or experienced —
+              can find their own path to inner peace.
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div data-reveal data-reveal-delay="4" className="mt-10">
+            <Button
+              asChild
+              className="rounded-full px-8 min-h-[50px] bg-golden hover:bg-golden/92 text-lagoon-dark font-semibold shadow-soft hover:shadow-card hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 font-body text-sm"
+            >
+              <Link to="/#journey">
+                My Journey
+                <ArrowRight className="ml-2" size={15} />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
+
+      {/* Subtle bottom fade into philosophy section */}
+      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sage-section/30 to-transparent pointer-events-none" />
     </section>
   );
 };

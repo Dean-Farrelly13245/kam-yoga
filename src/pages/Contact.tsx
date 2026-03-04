@@ -81,13 +81,14 @@ const Contact = () => {
 
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background">
+        <section className="relative py-20 lg:py-28 bg-gradient-to-b from-sage-section to-background overflow-hidden">
+          <div className="absolute inset-x-0 -bottom-1 h-10 bg-gradient-to-b from-transparent to-background/60 pointer-events-none" />
           <div className="container mx-auto px-5 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <span className="font-body text-[10px] uppercase tracking-[0.2em] text-foreground/45 font-medium">
                 Get in Touch
               </span>
-              <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
+              <h1 className="mt-4 font-heading text-4xl sm:text-5xl md:text-6xl font-medium text-foreground">
                 Let's Connect
               </h1>
               <p className="mt-6 font-body text-base text-muted-foreground leading-loose">
@@ -117,7 +118,7 @@ const Contact = () => {
                 <div className="space-y-4">
                   <a
                     href="mailto:hello@kamyoga.com"
-                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 group"
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/35 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group"
                   >
                     <div className="p-3 rounded-full bg-sage-light group-hover:bg-primary/20 transition-colors">
                       <Mail size={20} className="text-primary" />
@@ -128,7 +129,7 @@ const Contact = () => {
                     </div>
                   </a>
 
-                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50">
+                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 shadow-soft">
                     <div className="p-3 rounded-full bg-sage-light">
                       <MapPin size={20} className="text-primary" />
                     </div>
@@ -140,7 +141,7 @@ const Contact = () => {
 
                   <a
                     href="tel:0851051294"
-                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 group"
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/35 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group"
                   >
                     <div className="p-3 rounded-full bg-sage-light group-hover:bg-primary/20 transition-colors">
                       <Phone size={20} className="text-primary" />
@@ -155,7 +156,7 @@ const Contact = () => {
                     href="https://instagram.com/kelly81molloy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 group"
+                    className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border/50 hover:border-primary/35 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300 group"
                   >
                     <div className="p-3 rounded-full bg-sage-light group-hover:bg-primary/20 transition-colors">
                       <Instagram size={20} className="text-primary" />
@@ -171,7 +172,7 @@ const Contact = () => {
 
               {/* Contact Form */}
               <div className="lg:col-span-3">
-                <div className="bg-card rounded-2xl border border-border/50 shadow-soft p-8">
+                <div className="bg-card rounded-2xl border border-border/60 shadow-card p-8">
                   <h2 className="font-heading text-2xl font-medium text-foreground mb-6">
                     Send a Message
                   </h2>
@@ -285,7 +286,7 @@ const Contact = () => {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full rounded-xl bg-primary hover:bg-sage-dark text-primary-foreground py-6 text-base"
+                      className="w-full rounded-xl bg-primary hover:bg-sage-dark text-primary-foreground py-6 text-base hover:scale-[1.01] active:scale-[0.99] transition-all duration-300"
                     >
                       {isSubmitting ? (
                         "Sending..."
