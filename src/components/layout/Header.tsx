@@ -40,9 +40,9 @@ const Header = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="font-heading text-2xl md:text-3xl font-medium text-foreground tracking-wide hover:text-teal transition-colors duration-300"
+            className="font-heading text-xl md:text-2xl font-medium text-foreground tracking-wide hover:text-primary transition-colors duration-300"
           >
-            Kamyoga
+            Kam Yoga Sanctuary
           </Link>
 
           {/* Desktop Navigation */}
@@ -52,7 +52,7 @@ const Header = () => {
                 <Link
                   to={link.href}
                   onClick={link.href === "/#journey" ? handleJourneyClick : undefined}
-                  className="font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-teal hover:after:w-full after:transition-all after:duration-300 pb-0.5"
+                  className="font-body text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300 pb-0.5"
                 >
                   {link.label}
                 </Link>
@@ -64,7 +64,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Button 
               asChild
-              className="rounded-full px-6 py-2 bg-sage-section hover:bg-sage text-foreground border border-sage/40 hover:border-sage shadow-soft hover:shadow-hover transition-all duration-300 font-body text-sm"
+              className="rounded-full px-6 py-2 bg-golden hover:bg-golden/90 text-lagoon-dark font-medium shadow-soft hover:shadow-card transition-all duration-300 font-body text-sm"
             >
               <Link to="/classes">Book a Class</Link>
             </Button>
@@ -73,7 +73,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground hover:text-teal transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -99,7 +99,7 @@ const Header = () => {
                       setIsOpen(false);
                     }
                   }}
-                  className="block font-body text-base text-muted-foreground hover:text-foreground transition-colors duration-300 py-3 px-2 rounded-lg hover:bg-sage-light/40"
+                  className="block font-body text-base text-muted-foreground hover:text-foreground transition-colors duration-300 py-3 px-2 rounded-lg hover:bg-sand/50"
                 >
                   {link.label}
                 </Link>
@@ -108,7 +108,7 @@ const Header = () => {
             <li className="pt-3 pb-1">
               <Button 
                 asChild
-                className="w-full rounded-full py-3 bg-sage-section hover:bg-sage text-foreground border border-sage/40 hover:border-sage font-body min-h-[48px]"
+                className="w-full rounded-full py-3 bg-golden hover:bg-golden/90 text-lagoon-dark font-medium font-body min-h-[48px]"
               >
                 <Link to="/classes" onClick={() => setIsOpen(false)}>
                   Book a Class

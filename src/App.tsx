@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Classes from "./pages/Classes";
 import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+import BlogPostPage from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import BookingSuccess from "./pages/BookingSuccess";
@@ -43,7 +43,7 @@ const App = () => (
           <Route path="/classes" element={<Classes />} />
           <Route path="/classes/:sessionId" element={<ClassSessionPage />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/bookings" element={<MyBookings />} />
           <Route path="/booking/success" element={<BookingSuccess />} />

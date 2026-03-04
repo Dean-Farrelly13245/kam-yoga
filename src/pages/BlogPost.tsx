@@ -12,13 +12,13 @@ marked.setOptions({
 });
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { supabase, BlogPost } from "@/lib/supabaseClient";
+import { supabase, type BlogPost as BlogPostType } from "@/lib/supabaseClient";
 
-const BlogPost = () => {
+const BlogPostPage = () => {
   const { slug } = useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [post, setPost] = useState<BlogPostType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPostType[]>([]);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const BlogPost = () => {
 
   // Render markdown content with XSS protection
   const renderContent = () => {
-    const rawHtml = marked.parse(post.content);
+    const rawHtml = marked.parse(post.content) as string;
     const safeHtml = DOMPurify.sanitize(rawHtml);
     return { __html: safeHtml };
   };
@@ -305,4 +305,4 @@ const BlogPost = () => {
   );
 };
 
-export default BlogPost;
+export default BlogPostPage;
