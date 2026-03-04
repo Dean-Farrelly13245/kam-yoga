@@ -109,10 +109,6 @@ const Contact = () => {
                   <h2 className="font-heading text-2xl font-medium text-foreground mb-4">
                     Reach Out
                   </h2>
-                  <p className="font-body text-muted-foreground leading-relaxed">
-                    I aim to respond to all enquiries within 24-48 hours. 
-                    For urgent class bookings, please mention this in your message.
-                  </p>
                 </div>
 
                 <div className="space-y-4">
