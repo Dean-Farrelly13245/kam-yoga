@@ -135,10 +135,10 @@ const ClassSessionPage = () => {
                     </div>
                   </div>
 
-                  {session.notes && (
+                  {(session as any).notes && (
                     <div className="bg-card border border-border/60 rounded-xl p-4">
                       <h3 className="font-heading text-lg text-foreground mb-2">Notes</h3>
-                      <p className="font-body text-muted-foreground whitespace-pre-line">{session.notes}</p>
+                      <p className="font-body text-muted-foreground whitespace-pre-line">{(session as any).notes}</p>
                     </div>
                   )}
 

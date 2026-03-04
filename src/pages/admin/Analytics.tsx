@@ -47,7 +47,7 @@ const Analytics = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setPayments(data || []);
+      setPayments((data as any) || []);
     } catch (error: any) {
       console.error("Failed to load analytics", error);
       toast({

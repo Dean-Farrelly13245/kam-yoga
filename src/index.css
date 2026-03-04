@@ -1,152 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;1,6..12,300;1,6..12,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Kam Yoga Design System - Calm, minimal wellness aesthetic */
+/* Kam Yoga Sanctuary — Premium Wellness Design System */
 
 @layer base {
   :root {
-    /* ─── Base palette ─────────────────────────────────────── */
-    /* #F7F3EC  Luminous Pearl — main page background */
-    --background: 38 35% 95%;
-    --foreground: 25 20% 18%; /* Dark charcoal — slightly deeper for readability */
+    /* ─── Core Brand Palette ──────────────────────────────── */
+    /* Luminous Pearl #F7F3EC */
+    --background: 36 33% 95%;
+    --foreground: 180 20% 20%;
 
-    /* Sage card surface — clearly distinct from pearl */
-    --card: 140 20% 82%;
-    --card-foreground: 25 20% 18%;
+    /* Card — slightly warmer than background */
+    --card: 36 33% 95%;
+    --card-foreground: 180 20% 20%;
 
-    --popover: 38 35% 95%;
-    --popover-foreground: 25 20% 18%;
+    --popover: 36 33% 95%;
+    --popover-foreground: 180 20% 20%;
 
-    /* Coastal Teal — accent only, used very sparingly */
-    --primary: 180 22% 38%;
-    --primary-foreground: 38 35% 96%;
+    /* Coastal Teal #729A94 */
+    --primary: 168 16% 53%;
+    --primary-foreground: 36 33% 96%;
 
-    /* Warm sand secondary */
-    --secondary: 32 28% 84%;
-    --secondary-foreground: 25 20% 25%;
+    /* Sunkissed Sand #E6D5C3 */
+    --secondary: 28 38% 83%;
+    --secondary-foreground: 180 20% 20%;
 
-    /* Muted warm grey */
-    --muted: 35 20% 90%;
-    --muted-foreground: 25 14% 42%;
+    /* Muted */
+    --muted: 28 25% 90%;
+    --muted-foreground: 180 10% 42%;
 
-    /* Soft blue-sage accent surface */
-    --accent: 185 26% 65%;
-    --accent-foreground: 185 30% 20%;
+    /* Accent — Golden Mirage #D1A679 */
+    --accent: 28 48% 64%;
+    --accent-foreground: 36 33% 96%;
 
     --destructive: 0 65% 55%;
-    --destructive-foreground: 38 35% 96%;
+    --destructive-foreground: 36 33% 96%;
 
-    --border: 35 20% 76%;
-    --input: 35 20% 76%;
-    --ring: 180 22% 38%;
+    --border: 28 25% 82%;
+    --input: 28 25% 82%;
+    --ring: 168 16% 53%;
 
     --radius: 0.75rem;
 
-    /* ─── Custom Kam Yoga surface tokens ───────────────────── */
-    /* Pearl: #F7F3EC — lightest surface, always the "bright" layer */
-    --pearl: 38 35% 95%;
+    /* ─── Extended Brand Tokens ───────────────────────────── */
+    /* Pearl — Luminous Pearl #F7F3EC */
+    --pearl: 36 33% 95%;
 
-    /* Soft sage — darkened for clear contrast vs pearl */
-    --sage: 140 20% 68%;
-    --sage-light: 140 22% 85%;
-    --sage-dark: 140 22% 46%;
-    --sage-section: 140 20% 81%; /* was 88% — now 14pt gap vs pearl */
+    /* Sunkissed Sand #E6D5C3 */
+    --sand: 28 38% 83%;
+    --sand-light: 28 35% 90%;
 
-    /* Blue-sage — darkened for clear contrast vs pearl */
-    --blue-sage: 185 26% 65%;
-    --blue-sage-light: 185 28% 81%;
-    --blue-sage-section: 185 24% 78%; /* was 86% — now 17pt gap vs pearl */
+    /* Coastal Teal #729A94 */
+    --teal: 168 16% 53%;
+    --teal-light: 168 20% 88%;
 
-    /* Coastal Teal — only for tiny accent elements */
-    --teal: 180 22% 38%;
-    --teal-light: 180 28% 82%;
+    /* Deep Lagoon #3E5F5C */
+    --lagoon: 174 21% 31%;
+    --lagoon-dark: 174 25% 22%;
 
-    /* Warm neutrals */
-    --clay: 25 30% 56%;
-    --clay-light: 30 25% 84%;
-    --sand: 35 28% 79%;
-    --sand-light: 38 30% 87%;
-    --cream: 38 35% 95%;
+    /* Golden Mirage #D1A679 */
+    --golden: 28 48% 64%;
+    --golden-light: 28 40% 85%;
+
+    /* Soft optional background #ADC6C6 */
+    --sage: 180 18% 73%;
+    --sage-light: 180 16% 86%;
+    --sage-dark: 174 21% 31%;
+    --sage-section: 180 14% 82%;
+
+    --blue-sage: 180 18% 73%;
+    --blue-sage-light: 180 16% 86%;
+    --blue-sage-section: 28 38% 83%;
+
+    --clay: 28 30% 56%;
+    --clay-light: 28 25% 84%;
+    --cream: 36 33% 95%;
 
     /* ─── Typography ───────────────────────────────────────── */
-    --font-heading: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'Nunito Sans', system-ui, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
 
-    /* ─── Shadows (very subtle) ────────────────────────────── */
-    --shadow-soft: 0 2px 16px -4px hsl(35 20% 40% / 0.08);
-    --shadow-card: 0 6px 24px -6px hsl(35 20% 40% / 0.10);
-    --shadow-hover: 0 10px 36px -10px hsl(180 22% 42% / 0.12);
+    /* ─── Shadows ──────────────────────────────────────────── */
+    --shadow-soft: 0 2px 20px -4px hsl(28 20% 40% / 0.08);
+    --shadow-card: 0 8px 30px -8px hsl(28 20% 40% / 0.12);
+    --shadow-hover: 0 12px 40px -12px hsl(168 16% 42% / 0.15);
 
     /* ─── Transitions ──────────────────────────────────────── */
     --transition-calm: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* ─── Sidebar ──────────────────────────────────────────── */
-    --sidebar-background: 140 18% 88%;
-    --sidebar-foreground: 25 18% 28%;
-    --sidebar-primary: 180 22% 42%;
-    --sidebar-primary-foreground: 38 35% 96%;
-    --sidebar-accent: 185 25% 73%;
-    --sidebar-accent-foreground: 25 18% 28%;
-    --sidebar-border: 35 18% 84%;
-    --sidebar-ring: 180 22% 42%;
+    --sidebar-background: 180 14% 88%;
+    --sidebar-foreground: 180 18% 28%;
+    --sidebar-primary: 168 16% 53%;
+    --sidebar-primary-foreground: 36 33% 96%;
+    --sidebar-accent: 180 18% 73%;
+    --sidebar-accent-foreground: 180 18% 28%;
+    --sidebar-border: 28 25% 84%;
+    --sidebar-ring: 168 16% 53%;
   }
 
   .dark {
-    --background: 25 15% 10%;
-    --foreground: 38 18% 90%;
+    --background: 180 15% 10%;
+    --foreground: 36 18% 90%;
 
-    --card: 140 12% 16%;
-    --card-foreground: 38 18% 90%;
+    --card: 180 12% 14%;
+    --card-foreground: 36 18% 90%;
 
-    --popover: 25 15% 12%;
-    --popover-foreground: 38 18% 90%;
+    --popover: 180 15% 12%;
+    --popover-foreground: 36 18% 90%;
 
-    --primary: 180 25% 55%;
-    --primary-foreground: 25 15% 10%;
+    --primary: 168 20% 55%;
+    --primary-foreground: 180 15% 10%;
 
-    --secondary: 30 12% 18%;
-    --secondary-foreground: 38 18% 88%;
+    --secondary: 28 12% 18%;
+    --secondary-foreground: 36 18% 88%;
 
-    --muted: 185 10% 18%;
-    --muted-foreground: 38 12% 60%;
+    --muted: 180 10% 18%;
+    --muted-foreground: 36 12% 60%;
 
-    --accent: 185 20% 28%;
-    --accent-foreground: 185 20% 82%;
+    --accent: 28 35% 40%;
+    --accent-foreground: 36 18% 90%;
 
     --destructive: 0 55% 45%;
-    --destructive-foreground: 38 18% 90%;
+    --destructive-foreground: 36 18% 90%;
 
-    --border: 30 10% 22%;
-    --input: 30 10% 22%;
-    --ring: 180 25% 55%;
+    --border: 180 10% 22%;
+    --input: 180 10% 22%;
+    --ring: 168 20% 55%;
 
-    --pearl: 25 12% 12%;
-    --sage: 140 16% 38%;
-    --sage-light: 140 14% 20%;
-    --sage-dark: 140 20% 58%;
-    --sage-section: 140 12% 18%;
-    --blue-sage: 185 18% 38%;
-    --blue-sage-light: 185 14% 22%;
-    --blue-sage-section: 185 12% 20%;
-    --teal: 180 25% 55%;
-    --teal-light: 180 18% 22%;
-    --clay: 25 22% 40%;
-    --clay-light: 30 12% 20%;
-    --sand: 35 16% 24%;
-    --sand-light: 38 12% 18%;
-    --cream: 38 12% 12%;
+    --pearl: 180 12% 12%;
+    --sand: 28 16% 24%;
+    --sand-light: 28 12% 18%;
+    --teal: 168 20% 55%;
+    --teal-light: 168 14% 22%;
+    --lagoon: 174 21% 45%;
+    --lagoon-dark: 174 25% 14%;
+    --golden: 28 35% 50%;
+    --golden-light: 28 20% 20%;
+    --sage: 180 14% 38%;
+    --sage-light: 180 12% 20%;
+    --sage-dark: 174 18% 55%;
+    --sage-section: 180 10% 16%;
+    --blue-sage: 180 14% 38%;
+    --blue-sage-light: 180 12% 22%;
+    --blue-sage-section: 180 10% 18%;
+    --clay: 28 22% 40%;
+    --clay-light: 28 12% 20%;
+    --cream: 36 12% 12%;
 
-    --sidebar-background: 25 12% 12%;
-    --sidebar-foreground: 38 18% 88%;
-    --sidebar-primary: 180 25% 55%;
-    --sidebar-primary-foreground: 25 15% 10%;
-    --sidebar-accent: 185 18% 26%;
-    --sidebar-accent-foreground: 38 18% 88%;
-    --sidebar-border: 30 10% 22%;
-    --sidebar-ring: 180 25% 55%;
+    --sidebar-background: 180 12% 12%;
+    --sidebar-foreground: 36 18% 88%;
+    --sidebar-primary: 168 20% 55%;
+    --sidebar-primary-foreground: 180 15% 10%;
+    --sidebar-accent: 180 14% 26%;
+    --sidebar-accent-foreground: 36 18% 88%;
+    --sidebar-border: 180 10% 22%;
+    --sidebar-ring: 168 20% 55%;
   }
 }
 
@@ -181,31 +193,5 @@
 
   .font-body {
     font-family: var(--font-body);
-  }
-
-  /* Section background helpers */
-  .bg-pearl {
-    background-color: hsl(var(--pearl));
-  }
-
-  .bg-sage-section {
-    background-color: hsl(var(--sage-section));
-  }
-
-  .bg-blue-sage-section {
-    background-color: hsl(var(--blue-sage-section));
-  }
-
-  /* Teal accent — use very sparingly */
-  .text-teal {
-    color: hsl(var(--teal));
-  }
-
-  .border-teal {
-    border-color: hsl(var(--teal));
-  }
-
-  .bg-teal-light {
-    background-color: hsl(var(--teal-light));
   }
 }

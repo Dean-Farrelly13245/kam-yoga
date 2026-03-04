@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Cormorant Garamond', 'Georgia', 'serif'],
-        body: ['Nunito Sans', 'system-ui', 'sans-serif'],
+        heading: ['Playfair Display', 'Georgia', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,7 +51,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Kam Yoga custom colors
+        // Kam Yoga Sanctuary custom colors
         pearl: "hsl(var(--pearl))",
         sage: {
           DEFAULT: "hsl(var(--sage))",
@@ -67,6 +67,14 @@ export default {
         teal: {
           DEFAULT: "hsl(var(--teal))",
           light: "hsl(var(--teal-light))",
+        },
+        lagoon: {
+          DEFAULT: "hsl(var(--lagoon))",
+          dark: "hsl(var(--lagoon-dark))",
+        },
+        golden: {
+          DEFAULT: "hsl(var(--golden))",
+          light: "hsl(var(--golden-light))",
         },
         clay: {
           DEFAULT: "hsl(var(--clay))",
