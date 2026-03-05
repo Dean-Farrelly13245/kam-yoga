@@ -36,39 +36,42 @@ const OfferingsSection = () => {
   const offeringsImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga5.png`;
 
   return (
-    <section className="relative py-24 lg:py-36 bg-background overflow-hidden">
-      {/* Background photo */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="w-full h-full bg-center bg-cover opacity-12"
-          style={{ backgroundImage: `url(${offeringsImage})` }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-background/68 pointer-events-none" />
+    <section className="relative py-28 lg:py-40 bg-background overflow-hidden">
+      <div
+        className="bg-photo"
+        style={
+          {
+            backgroundImage: `url(${offeringsImage})`,
+            ["--photo-opacity" as any]: 0.16,
+            ["--photo-position" as any]: "center",
+          }
+        }
+      />
+      <div className="overlay-light" />
 
       {/* Top blend from philosophy */}
-      <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-sage/8 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sage/14 via-sage/5 to-transparent pointer-events-none" />
 
       {/* Decorative background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,hsl(var(--golden)_/_0.05),transparent_45%)] pointer-events-none" />
 
       <div className="container mx-auto px-5 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
+        <div className="max-w-3xl mx-auto text-center mb-18 lg:mb-24 surface px-6 py-8 sm:px-8 sm:py-10">
           <div data-reveal>
             <span className="section-label">Offerings</span>
           </div>
           <h2
             data-reveal
             data-reveal-delay="1"
-            className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-foreground leading-tight"
+            className="mt-5 font-heading text-4xl sm:text-5xl md:text-[3.45rem] font-medium text-foreground leading-tight"
           >
             Ways to Practice Together
           </h2>
           <p
             data-reveal
             data-reveal-delay="2"
-            className="mt-5 font-body text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
+            className="mt-6 font-body text-[1.02rem] sm:text-[1.12rem] text-muted-foreground leading-[1.72] max-w-2xl mx-auto"
           >
             Whether you're new to yoga or deepening an established practice,
             there's a space for you here.
@@ -76,7 +79,7 @@ const OfferingsSection = () => {
         </div>
 
         {/* Offerings Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 max-w-6xl mx-auto">
           {offerings.map((offering, index) => {
             const Icon = offering.icon;
             const delays = ["1", "2", "3", "4"] as const;
@@ -86,18 +89,18 @@ const OfferingsSection = () => {
                 to={offering.link}
                 data-reveal
                 data-reveal-delay={delays[index]}
-                className="group relative bg-sand/55 rounded-t-[3rem] rounded-b-2xl pt-12 pb-9 px-7 border border-border/50 shadow-soft hover:border-primary/30 hover:shadow-hover hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center"
+                className="group relative bg-sand/86 rounded-t-[3rem] rounded-b-2xl pt-13 pb-10 px-7 border border-border/56 shadow-[0_8px_24px_rgba(63,82,80,0.1),0_2px_10px_rgba(63,82,80,0.06)] hover:border-primary/34 hover:shadow-[0_18px_36px_rgba(63,82,80,0.16),0_8px_18px_rgba(63,82,80,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center"
               >
                 {/* Icon circle */}
-                <div className="w-20 h-20 rounded-full bg-teal-light border border-primary/10 flex items-center justify-center mb-7 shadow-soft group-hover:bg-primary/12 group-hover:border-primary/25 transition-all duration-300">
-                  <Icon size={28} className="text-primary" />
+                <div className="w-[5.25rem] h-[5.25rem] rounded-full bg-teal-light border border-primary/12 flex items-center justify-center mb-8 shadow-[0_5px_14px_rgba(63,82,80,0.12)] group-hover:bg-primary/14 group-hover:border-primary/25 transition-all duration-300">
+                  <Icon size={31} className="text-primary" />
                 </div>
 
-                <h3 className="font-heading text-xl font-medium text-foreground mb-3.5 italic">
+                <h3 className="font-heading text-[1.35rem] font-medium text-foreground mb-4 italic">
                   {offering.title}
                 </h3>
 
-                <p className="font-body text-sm text-muted-foreground leading-[1.8] mb-5 flex-1">
+                <p className="font-body text-[0.95rem] text-muted-foreground leading-[1.7] mb-6 flex-1">
                   {offering.description}
                 </p>
 

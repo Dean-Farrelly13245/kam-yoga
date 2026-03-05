@@ -58,40 +58,46 @@ const JourneySection = () => {
   return (
     <section
       id="journey"
-      className="relative py-24 lg:py-36 bg-teal overflow-hidden"
+      className="relative py-28 lg:py-40 bg-teal overflow-hidden"
     >
-      {/* Background photo */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="w-full h-full bg-center bg-cover opacity-20"
-          style={{ backgroundImage: `url(${journeyImage})` }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-teal/38 pointer-events-none" />
+      <div
+        className="bg-photo"
+        style={
+          {
+            backgroundImage: `url(${journeyImage})`,
+            ["--photo-opacity" as any]: 0.24,
+            ["--photo-position" as any]: "center",
+            ["--overlay-start" as any]: "hsl(var(--teal-dark) / 0.66)",
+            ["--overlay-mid" as any]: "hsl(var(--teal) / 0.46)",
+            ["--overlay-end" as any]: "hsl(var(--teal-dark) / 0.58)",
+          }
+        }
+      />
+      <div className="overlay-dark" />
 
       {/* Gradient depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/60 via-teal to-teal/90 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/52 via-teal/84 to-teal/76 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_35%,hsl(var(--teal)_/_0.12),transparent_50%),radial-gradient(circle_at_85%_65%,hsl(var(--golden)_/_0.07),transparent_45%)] pointer-events-none" />
 
       <div className="relative container mx-auto px-5 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20 surface-dark px-6 py-8 sm:px-8 sm:py-10">
           <div data-reveal>
-            <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-golden/80 font-medium">
+            <span className="section-label text-golden/85">
               The Journey
             </span>
           </div>
           <h2
             data-reveal
             data-reveal-delay="1"
-            className="mt-4 font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-pearl leading-tight"
+            className="mt-5 font-heading text-4xl sm:text-5xl md:text-[3.45rem] font-medium text-pearl leading-tight"
           >
             Over Two Decades of Practice
           </h2>
           <p
             data-reveal
             data-reveal-delay="2"
-            className="mt-5 font-body text-base text-pearl/55 leading-relaxed max-w-md mx-auto"
+            className="mt-6 font-body text-[1.02rem] text-pearl/66 leading-relaxed max-w-md mx-auto"
           >
             A path guided by heart, deepened through practice, and shared with
             love.
@@ -102,7 +108,7 @@ const JourneySection = () => {
         <div className="max-w-3xl mx-auto">
           <div className="relative">
             {/* Vertical gradient line */}
-            <div className="absolute left-[1.125rem] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-golden/28 to-transparent md:-translate-x-px" />
+            <div className="absolute left-[1.125rem] md:left-1/2 top-0 bottom-0 w-[0.5px] bg-gradient-to-b from-transparent via-golden/42 to-transparent md:-translate-x-px" />
 
             {milestones.map((milestone, index) => {
               const isEven = index % 2 === 0;
@@ -111,7 +117,7 @@ const JourneySection = () => {
                   key={index}
                   data-reveal
                   data-reveal-delay={String(Math.min((index % 3) + 1, 5))}
-                  className={`relative flex items-start mb-14 sm:mb-16 last:mb-0 ${
+                  className={`relative flex items-start mb-16 sm:mb-20 last:mb-0 ${
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
@@ -121,11 +127,11 @@ const JourneySection = () => {
                     aria-hidden="true"
                   >
                     {/* Outer glow ring */}
-                    <div className="w-8 h-8 rounded-full bg-golden/10 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-golden/14 flex items-center justify-center shadow-[0_0_0_4px_hsl(var(--golden)_/_0.06)]">
                       {/* Inner ring */}
-                      <div className="w-5 h-5 rounded-full bg-golden/18 ring-1 ring-golden/30 flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-golden/24 ring-1 ring-golden/44 flex items-center justify-center">
                         {/* Core dot */}
-                        <div className="w-2.5 h-2.5 rounded-full bg-golden shadow-[0_0_8px_hsl(var(--golden)_/_0.5)]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-golden shadow-[0_0_12px_hsl(var(--golden)_/_0.62)]" />
                       </div>
                     </div>
                   </div>
@@ -136,14 +142,14 @@ const JourneySection = () => {
                       isEven ? "md:pr-10 md:text-right" : "md:pl-10"
                     }`}
                   >
-                    <div className="bg-pearl/10 backdrop-blur-sm rounded-xl p-6 sm:p-7 border border-pearl/15 hover:border-golden/30 hover:bg-pearl/14 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_4px_24px_rgba(0,0,0,0.12)]">
+                    <div className="bg-pearl/13 backdrop-blur-md rounded-xl p-7 sm:p-8 border border-pearl/18 hover:border-golden/34 hover:bg-pearl/16 hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_28px_rgba(0,0,0,0.14),0_3px_10px_rgba(0,0,0,0.08)]">
                       <span className="font-body text-[10px] font-semibold text-golden/85 uppercase tracking-[0.18em]">
                         {milestone.year}
                       </span>
-                      <h3 className="mt-2 font-heading text-lg sm:text-xl font-medium text-pearl leading-snug">
+                      <h3 className="mt-2.5 font-heading text-xl sm:text-[1.35rem] font-medium text-pearl leading-snug">
                         {milestone.title}
                       </h3>
-                      <p className="mt-3 font-body text-sm text-pearl/60 leading-[1.8]">
+                      <p className="mt-3.5 font-body text-[0.95rem] text-pearl/68 leading-[1.72]">
                         {milestone.description}
                       </p>
                     </div>

@@ -20,18 +20,18 @@ const HeroSection = () => {
   const heroImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga1.png`;
 
   return (
-    <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden bg-teal">
-      {/* Background image with soft overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="w-full h-full bg-center bg-cover opacity-50"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-teal/28 pointer-events-none" />
-
-      {/* Layered depth gradients */}
-      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/70 via-teal/58 to-teal/50" />
+    <section className="relative min-h-[96vh] flex items-center justify-center overflow-hidden bg-teal">
+      <div
+        className="bg-photo"
+        style={
+          {
+            backgroundImage: `url(${heroImage})`,
+            ["--photo-opacity" as any]: 0.6,
+            ["--photo-position" as any]: "center 24%",
+          }
+        }
+      />
+      <div className="overlay-dark" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_15%,hsl(var(--teal)_/_0.2),transparent_45%),radial-gradient(ellipse_at_80%_85%,hsl(var(--golden)_/_0.12),transparent_45%)]" />
 
       {/* Soft ambient glows */}
@@ -41,37 +41,37 @@ const HeroSection = () => {
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-golden/30 to-transparent" />
 
-      <div className="relative container mx-auto px-5 lg:px-8 pt-28 pb-32 md:pt-36 md:pb-40">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="relative container mx-auto px-5 lg:px-8 pt-32 pb-36 md:pt-40 md:pb-44">
+        <div className="max-w-3xl mx-auto text-center surface-dark px-6 py-8 sm:px-8 sm:py-10">
 
           {/* Decorative flourish */}
-          <div className="flex justify-center items-center gap-3 mb-10">
+          <div className="flex justify-center items-center gap-3 mb-12">
             <div className="w-10 h-px bg-gradient-to-r from-transparent to-golden/55" />
             <div className="w-1.5 h-1.5 rounded-full bg-golden/65" />
             <div className="w-10 h-px bg-gradient-to-l from-transparent to-golden/55" />
           </div>
 
           {/* Brand Name */}
-          <h1 className="font-heading text-[2.9rem] sm:text-6xl md:text-7xl lg:text-8xl font-medium text-pearl tracking-[0.12em] sm:tracking-[0.2em] md:tracking-[0.25em] leading-none drop-shadow-[0_2px_32px_rgba(0,0,0,0.2)] uppercase whitespace-nowrap">
+          <h1 className="font-heading text-[3.2rem] sm:text-7xl md:text-8xl lg:text-[6.2rem] font-medium text-pearl tracking-[0.12em] sm:tracking-[0.2em] md:tracking-[0.24em] leading-none drop-shadow-[0_2px_32px_rgba(0,0,0,0.2)] uppercase whitespace-nowrap">
             KAM YOGA
           </h1>
 
           {/* Tagline */}
-          <p className="mt-5 font-heading text-xl sm:text-2xl md:text-[1.75rem] text-[#D1A679] italic font-normal tracking-wide">
+          <p className="mt-6 font-heading text-[1.35rem] sm:text-[1.8rem] md:text-[2rem] text-[#D1A679] italic font-normal tracking-wide">
             Yoga by heart
           </p>
 
           {/* Supporting text */}
-          <p className="mt-7 font-body text-base sm:text-lg text-pearl/65 font-light max-w-sm mx-auto leading-relaxed">
+          <p className="mt-8 font-body text-base sm:text-lg text-pearl/72 font-light max-w-sm mx-auto leading-relaxed">
             A lifelong journey of yoga, meditation, and heart connection.
           </p>
 
           {/* CTAs */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-[#E0C39F] hover:bg-[#D8B684] text-teal-dark font-semibold shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_32px_rgba(0,0,0,0.25)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 text-base font-body tracking-wide"
+              className="w-full sm:w-auto rounded-full px-11 min-h-[56px] bg-golden hover:bg-golden/92 text-teal-dark font-semibold shadow-[0_8px_24px_rgba(0,0,0,0.18)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.24)] hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 text-base font-body tracking-wide"
             >
               <Link to="/classes">
                 Book a Class
@@ -81,7 +81,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto rounded-full px-10 min-h-[54px] bg-pearl text-teal-dark border border-pearl/80 hover:bg-pearl/95 hover:border-pearl transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] text-base font-body shadow-[0_2px_16px_rgba(0,0,0,0.18)]"
+              className="w-full sm:w-auto rounded-full px-10 min-h-[56px] bg-pearl/88 backdrop-blur-[2px] text-teal-dark border border-pearl/65 hover:bg-pearl/96 hover:border-pearl/90 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] text-base font-body shadow-[0_5px_18px_rgba(0,0,0,0.14)]"
             >
               <Link to="/classes">
                 View Classes

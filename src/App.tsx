@@ -23,6 +23,7 @@ import AdminBookings from "./pages/admin/Bookings";
 import AdminAnalytics from "./pages/admin/Analytics";
 import TestModeBanner from "./components/layout/TestModeBanner";
 import ScrollToTop from "./components/ui/scroll-to-top";
+import "./App.css";
 
 const queryClient = new QueryClient();
 
