@@ -3,8 +3,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
+  const ctaImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga2.png`;
+
   return (
     <section className="relative py-24 lg:py-36 bg-sand overflow-hidden">
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-24"
+          style={{ backgroundImage: `url(${ctaImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-sand/60 via-sand/52 to-sand/58 pointer-events-none" />
+
       {/* Ambient glow overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_25%,hsl(var(--teal)_/_0.07),transparent_40%),radial-gradient(ellipse_at_75%_75%,hsl(var(--golden)_/_0.12),transparent_45%)] pointer-events-none" />
 

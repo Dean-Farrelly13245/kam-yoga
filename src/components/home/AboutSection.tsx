@@ -3,8 +3,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const AboutSection = () => {
+  const aboutImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga2.png`;
+
   return (
     <section className="relative py-24 lg:py-36 bg-sand overflow-hidden">
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-18"
+          style={{ backgroundImage: `url(${aboutImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-sand/65 pointer-events-none" />
+
       {/* Subtle top blend from hero wave */}
       <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sand to-transparent pointer-events-none" />
 
@@ -12,7 +23,7 @@ const AboutSection = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,hsl(var(--golden)_/_0.07),transparent_55%)] pointer-events-none" />
 
       <div className="container mx-auto px-5 lg:px-8">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
 
           {/* Section label */}
           <div data-reveal>

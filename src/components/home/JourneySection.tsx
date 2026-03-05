@@ -53,18 +53,29 @@ const milestones = [
 ];
 
 const JourneySection = () => {
+  const journeyImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga3.png`;
+
   return (
     <section
       id="journey"
       className="relative py-24 lg:py-36 bg-teal overflow-hidden"
     >
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-20"
+          style={{ backgroundImage: `url(${journeyImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-teal/38 pointer-events-none" />
+
       {/* Gradient depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/60 via-teal to-teal/90 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_35%,hsl(var(--teal)_/_0.12),transparent_50%),radial-gradient(circle_at_85%_65%,hsl(var(--golden)_/_0.07),transparent_45%)] pointer-events-none" />
 
       <div className="relative container mx-auto px-5 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-24">
+        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
           <div data-reveal>
             <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-golden/80 font-medium">
               The Journey

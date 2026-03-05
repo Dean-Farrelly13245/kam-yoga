@@ -28,8 +28,19 @@ const values = [
 ];
 
 const PhilosophySection = () => {
+  const philosophyImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga4.jpeg`;
+
   return (
     <section className="relative py-24 lg:py-36 bg-sage/25 overflow-hidden">
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-14"
+          style={{ backgroundImage: `url(${philosophyImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-sage/55 pointer-events-none" />
+
       {/* Top blend from sand */}
       <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-sand/40 to-transparent pointer-events-none" />
 

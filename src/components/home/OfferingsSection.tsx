@@ -33,8 +33,19 @@ const offerings = [
 ];
 
 const OfferingsSection = () => {
+  const offeringsImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga5.png`;
+
   return (
     <section className="relative py-24 lg:py-36 bg-background overflow-hidden">
+      {/* Background photo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-12"
+          style={{ backgroundImage: `url(${offeringsImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-background/68 pointer-events-none" />
+
       {/* Top blend from philosophy */}
       <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-sage/8 to-transparent pointer-events-none" />
 

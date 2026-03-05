@@ -17,10 +17,21 @@ const HeroSection = () => {
     }
   };
 
+  const heroImage = `${import.meta.env.BASE_URL || "/"}photos/kamyoga1.png`;
+
   return (
     <section className="relative min-h-[94vh] flex items-center justify-center overflow-hidden bg-teal">
+      {/* Background image with soft overlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="w-full h-full bg-center bg-cover opacity-50"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-teal/28 pointer-events-none" />
+
       {/* Layered depth gradients */}
-      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark via-teal to-teal/85" />
+      <div className="absolute inset-0 bg-gradient-to-b from-teal-dark/70 via-teal/58 to-teal/50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_15%,hsl(var(--teal)_/_0.2),transparent_45%),radial-gradient(ellipse_at_80%_85%,hsl(var(--golden)_/_0.12),transparent_45%)]" />
 
       {/* Soft ambient glows */}
