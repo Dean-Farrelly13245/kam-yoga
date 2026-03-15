@@ -200,25 +200,25 @@
 
 /* ─── Scroll Reveal ─────────────────────────────────── */
 [data-reveal] {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 0;
+  transform: translateY(20px);
   will-change: opacity, transform;
 }
 
 [data-reveal].in-view {
-  animation: gentle-reveal 0.75s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: gentle-reveal 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 [data-reveal-delay="1"] { animation-delay: 0.08s; }
 [data-reveal-delay="2"] { animation-delay: 0.16s; }
-[data-reveal-delay="3"] { animation-delay: 0.24s; }
-[data-reveal-delay="4"] { animation-delay: 0.32s; }
-[data-reveal-delay="5"] { animation-delay: 0.4s; }
+[data-reveal-delay="3"] { animation-delay: 0.26s; }
+[data-reveal-delay="4"] { animation-delay: 0.36s; }
+[data-reveal-delay="5"] { animation-delay: 0.46s; }
 
 @keyframes gentle-reveal {
   from {
-    opacity: 0.75;
-    transform: translateY(14px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -248,15 +248,17 @@
 .btn-glass {
   background: hsl(var(--pearl) / 0.08);
   border: 1px solid hsl(var(--pearl) / 0.32);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
   color: hsl(var(--pearl) / 0.88);
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-glass:hover {
-  background: hsl(var(--pearl) / 0.15);
-  border-color: hsl(var(--pearl) / 0.5);
+  background: hsl(var(--pearl) / 0.16);
+  border-color: hsl(var(--pearl) / 0.52);
   color: hsl(var(--pearl));
+  box-shadow: 0 0 0 1px hsl(var(--pearl) / 0.08) inset;
 }
 
 /* ─── Section Label ─────────────────────────────────── */
@@ -281,17 +283,36 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 1px;
   background: linear-gradient(
     90deg,
-    transparent,
-    hsl(var(--primary) / 0.35),
-    transparent
+    transparent 10%,
+    hsl(var(--primary) / 0.55) 50%,
+    transparent 90%
   );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .card-premium:hover::before {
   opacity: 1;
+}
+
+/* ─── Golden Glow Button ────────────────────────────── */
+.btn-golden-glow:hover {
+  box-shadow:
+    0 12px 36px hsl(28 48% 64% / 0.32),
+    0 4px 14px hsl(28 48% 64% / 0.2);
+}
+
+/* ─── Timeline Line Glow ────────────────────────────── */
+.timeline-line {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    hsl(var(--golden) / 0.5) 15%,
+    hsl(var(--golden) / 0.38) 85%,
+    transparent
+  );
+  filter: drop-shadow(0 0 3px hsl(var(--golden) / 0.2));
 }

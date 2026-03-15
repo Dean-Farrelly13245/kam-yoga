@@ -89,26 +89,26 @@ const OfferingsSection = () => {
                 to={offering.link}
                 data-reveal
                 data-reveal-delay={delays[index]}
-                className="group relative bg-sand/86 rounded-t-[3rem] rounded-b-2xl pt-13 pb-10 px-7 border border-border/56 shadow-[0_8px_24px_rgba(63,82,80,0.1),0_2px_10px_rgba(63,82,80,0.06)] hover:border-primary/34 hover:shadow-[0_18px_36px_rgba(63,82,80,0.16),0_8px_18px_rgba(63,82,80,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col items-center text-center"
+                className="card-premium group relative bg-sand/86 rounded-t-[3rem] rounded-b-2xl pt-13 pb-10 px-7 border border-border/48 shadow-[0_8px_28px_rgba(63,82,80,0.1),0_2px_10px_rgba(63,82,80,0.06)] hover:border-primary/38 hover:shadow-[0_20px_44px_rgba(63,82,80,0.18),0_8px_20px_rgba(63,82,80,0.09)] hover:-translate-y-2 transition-all duration-350 flex flex-col items-center text-center cursor-pointer"
               >
                 {/* Icon circle */}
-                <div className="w-[5.25rem] h-[5.25rem] rounded-full bg-teal-light border border-primary/12 flex items-center justify-center mb-8 shadow-[0_5px_14px_rgba(63,82,80,0.12)] group-hover:bg-primary/14 group-hover:border-primary/25 transition-all duration-300">
-                  <Icon size={31} className="text-primary" />
+                <div className="w-[5.25rem] h-[5.25rem] rounded-full bg-teal-light border border-primary/14 flex items-center justify-center mb-8 shadow-[0_5px_16px_rgba(63,82,80,0.13)] group-hover:bg-primary/16 group-hover:border-primary/30 group-hover:scale-105 transition-all duration-350">
+                  <Icon size={31} className="text-primary group-hover:scale-105 transition-transform duration-350" />
                 </div>
 
                 <h3 className="font-heading text-[1.35rem] font-medium text-foreground mb-4 italic">
                   {offering.title}
                 </h3>
 
-                <p className="font-body text-[0.95rem] text-muted-foreground leading-[1.7] mb-6 flex-1">
+                <p className="font-body text-[0.95rem] text-muted-foreground leading-[1.72] mb-6 flex-1">
                   {offering.description}
                 </p>
 
-                <span className="inline-flex items-center gap-1.5 font-body text-xs text-primary group-hover:text-accent transition-colors duration-200 font-medium">
+                <span className="inline-flex items-center gap-1.5 font-body text-[0.8rem] text-primary group-hover:text-accent transition-colors duration-250 font-medium tracking-wide">
                   Explore
                   <ArrowRight
-                    size={12}
-                    className="group-hover:translate-x-0.5 transition-transform duration-200"
+                    size={13}
+                    className="group-hover:translate-x-1 transition-transform duration-250"
                   />
                 </span>
               </Link>

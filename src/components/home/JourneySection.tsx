@@ -108,16 +108,17 @@ const JourneySection = () => {
         <div className="max-w-3xl mx-auto">
           <div className="relative">
             {/* Vertical gradient line */}
-            <div className="absolute left-[1.125rem] md:left-1/2 top-0 bottom-0 w-[0.5px] bg-gradient-to-b from-transparent via-golden/42 to-transparent md:-translate-x-px" />
+            <div className="timeline-line absolute left-[1.125rem] md:left-1/2 top-0 bottom-0 w-px md:-translate-x-px" />
 
             {milestones.map((milestone, index) => {
               const isEven = index % 2 === 0;
+              const MilestoneIcon = milestone.icon;
               return (
                 <div
                   key={index}
                   data-reveal
                   data-reveal-delay={String(Math.min((index % 3) + 1, 5))}
-                  className={`relative flex items-start mb-16 sm:mb-20 last:mb-0 ${
+                  className={`relative flex items-start mb-14 sm:mb-18 last:mb-0 ${
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   }`}
                 >
@@ -127,11 +128,10 @@ const JourneySection = () => {
                     aria-hidden="true"
                   >
                     {/* Outer glow ring */}
-                    <div className="w-8 h-8 rounded-full bg-golden/14 flex items-center justify-center shadow-[0_0_0_4px_hsl(var(--golden)_/_0.06)]">
-                      {/* Inner ring */}
-                      <div className="w-5 h-5 rounded-full bg-golden/24 ring-1 ring-golden/44 flex items-center justify-center">
-                        {/* Core dot */}
-                        <div className="w-2.5 h-2.5 rounded-full bg-golden shadow-[0_0_12px_hsl(var(--golden)_/_0.62)]" />
+                    <div className="w-8 h-8 rounded-full bg-golden/16 flex items-center justify-center shadow-[0_0_0_5px_hsl(var(--golden)_/_0.08),0_0_12px_hsl(var(--golden)_/_0.15)]">
+                      {/* Inner icon ring */}
+                      <div className="w-[1.375rem] h-[1.375rem] rounded-full bg-golden/30 ring-1 ring-golden/55 flex items-center justify-center shadow-[0_0_8px_hsl(var(--golden)_/_0.45)]">
+                        <MilestoneIcon size={11} className="text-golden" strokeWidth={2.5} />
                       </div>
                     </div>
                   </div>
@@ -142,14 +142,14 @@ const JourneySection = () => {
                       isEven ? "md:pr-10 md:text-right" : "md:pl-10"
                     }`}
                   >
-                    <div className="bg-pearl/13 backdrop-blur-md rounded-xl p-7 sm:p-8 border border-pearl/18 hover:border-golden/34 hover:bg-pearl/16 hover:-translate-y-1 transition-all duration-300 shadow-[0_10px_28px_rgba(0,0,0,0.14),0_3px_10px_rgba(0,0,0,0.08)]">
-                      <span className="font-body text-[10px] font-semibold text-golden/85 uppercase tracking-[0.18em]">
+                    <div className="card-premium bg-pearl/13 backdrop-blur-[16px] rounded-xl p-7 sm:p-8 border border-pearl/16 hover:border-golden/38 hover:bg-pearl/18 hover:-translate-y-1.5 transition-all duration-350 shadow-[0_10px_32px_rgba(0,0,0,0.16),0_3px_10px_rgba(0,0,0,0.09)] cursor-default">
+                      <span className="font-body text-[10px] font-semibold text-golden/88 uppercase tracking-[0.22em]">
                         {milestone.year}
                       </span>
-                      <h3 className="mt-2.5 font-heading text-xl sm:text-[1.35rem] font-medium text-pearl leading-snug">
+                      <h3 className="mt-3 font-heading text-xl sm:text-[1.35rem] font-medium text-pearl leading-snug">
                         {milestone.title}
                       </h3>
-                      <p className="mt-3.5 font-body text-[0.95rem] text-pearl/68 leading-[1.72]">
+                      <p className="mt-4 font-body text-[0.94rem] text-pearl/70 leading-[1.76]">
                         {milestone.description}
                       </p>
                     </div>
